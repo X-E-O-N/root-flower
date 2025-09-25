@@ -1,0 +1,114 @@
+/* general */
+
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    width: auto;
+    min-height: 100vh;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+}
+
+a {
+    text-decoration: none;    
+}
+
+ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    /*display: flex;
+    gap: 12px;*/
+}
+
+.white-text,
+.white-text a {
+    color: white;
+}
+
+/* header, navbar */
+
+header {
+    width: 100vw;
+    height: 15vh;
+    display: flex;
+    flex-direction: column;
+    flex-wrap:nowrap;
+}
+
+.top {
+    background-color: #660000;
+    display: flex;
+    justify-content: center;
+    align-items: center ;
+}
+
+.top img {
+    height: 70px;
+    width: auto;
+    margin: 10px 20px;
+}
+
+nav {
+    background-color: #990000;
+    height: 40px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.nav-menu {
+    width: auto;
+    display: flex;
+    justify-content: left;
+}
+
+.nav-menu li {
+    margin: 0 20px;
+}
+
+.dropdown {
+    position: relative;
+    margin: 0 20px;
+}
+
+.dropdown-content {
+    background-color: #990000;
+    display: none;
+    position: absolute;
+    padding: 10px 20px;
+}
+
+.dropdown-content li {
+    margin: 15px 0;
+}
+
+.dropdown:hover .dropdown-content {
+    display: block;
+}
+
+#login {
+    margin: 0 20px;
+}
+
+/* content */
+
+
+
+/* footer */
+
+footer {
+    background-color: #660000;
+    width: 100vw;
+    height: 10vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+footer div {
+    margin: 0 20px;
+}
+
