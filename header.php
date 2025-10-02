@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="styles/style.css" rel="stylesheet">
-    <title>About - Azmain</title>
+    <title>Home - Root Flower</title>
 </head>
 <body>
     <header class="white-text">
@@ -46,46 +46,3 @@
             </div>
         </nav>
     </header>
-
-    <div class="content">
-        <h1 class="profile-header">About - Azmain Taraqqi</h1>
-        <img class="pfp" src="images/azmain_illustration.jpg">
-        <table class="profile-table">
-            <tr>
-                <th>Full Name</th>
-                <td>Azmain Taraqqi</td>
-            </tr>
-            <tr>
-                <th>Student ID</th>
-                <td>105804016</td>
-            </tr>
-            <tr>
-                <th>Course</th>
-                <td>Bachelor of Computer Science</td>
-            </tr>
-            <tr>
-                <th>Self Description</th>
-                <td>Compsci undergrad hailing all the way from Bangladesh. Likes playing guitar, cooking, wandering around.</td>
-            </tr>
-            <tr>
-                <th>Email</th>
-                <td><a href="mailto:105804016@students.swinburne.edu.my">105804016@students.swinburne.edu.my</a>
-        </table>
-    </div>
-
-    <footer class="white-text">
-        <div class="fabout">
-            About Us:
-            <ul class="aboutlist">
-                <a href="aboutme1.html">Azmain Taraqqi</a>
-            </ul>
-        </div>
-        <div class="fcontact">
-            Contact Us:
-            <ul class="contactlist">
-                <li><a href="mailto:105804016@students.swinburne.edu.my">105804016@students.swinburne.edu.my</a></li>
-            </ul>
-        </div>
-    </footer>
-</body>
-</html>
