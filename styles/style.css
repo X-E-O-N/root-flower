@@ -40,6 +40,9 @@ header {
 
 .top {
     background-color: #660000;
+    font-size: 30px;
+    font-style: italic;
+    font-family: cursive;
     display: flex;
     justify-content: center;
     align-items: center ;
@@ -53,6 +56,7 @@ header {
 
 nav {
     background-color: #990000;
+    font-weight: 800;
     height: 40px;
     display: flex;
     justify-content: space-between;
@@ -76,13 +80,18 @@ nav {
 
 .dropdown-content {
     background-color: #990000;
+    font-weight: 500;
     display: none;
     position: absolute;
-    padding: 10px 20px;
 }
 
 .dropdown-content li {
-    margin: 15px 0;
+    margin: 0;
+    padding: 15px;
+}
+
+.dropdown-content li:hover {
+    background-color: #770000;
 }
 
 .dropdown:hover .dropdown-content {
@@ -101,14 +110,25 @@ nav {
 
 footer {
     background-color: #660000;
+    font-size: 18px;
     width: 100vw;
-    height: 10vh;
+    min-height: 30vh;
     display: flex;
     justify-content: center;
     align-items: center;
 }
 
 footer div {
-    margin: 0 20px;
+    margin: 20px;
+    font-weight: 700;
+}
+
+footer div ul {
+    font-weight: 500;
+    margin: 20px 0;
+}
+
+footer div ul:hover {
+    text-decoration: underline;
 }
 
