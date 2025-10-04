@@ -1,7 +1,9 @@
 /* general */
 
 body {
-    font-family: Arial, Helvetica, sans-serif;
+    font-family: "URW Bookman L", serif;
+    color: #4d0000;
+    background-color:#eeb57e ;
     width: auto;
     min-height: 100vh;
     margin: 0;
@@ -25,10 +27,11 @@ ul {
 
 .white-text,
 .white-text a {
-    color: white;
+    color:  #ffffff;
 }
 
 .content {
+    width: 90vw;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -76,8 +79,16 @@ nav {
     justify-content: left;
 }
 
-.nav-menu li {
+.nav-menu li,
+#login {
     margin: 0 20px;
+    padding: 8px;
+    border-radius: 5px;
+}
+
+.nav-menu li:hover,
+#login:hover {
+    background-color:#770000;
 }
 
 .dropdown {
@@ -90,6 +101,7 @@ nav {
     font-weight: 500;
     display: none;
     position: absolute;
+    border-radius: 5px;
 }
 
 .dropdown-content li {
@@ -132,7 +144,134 @@ nav {
     padding: 8px;
 }
 
+/*forms*/
 
+form {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    width: 70vw;
+    margin: 20px 0;
+}
+
+fieldset {
+    border: 0;
+    margin-bottom: 30px;
+    width: inherit;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+legend {
+    font-size: 22px;
+    font-weight: 600;
+    margin-bottom: 10px;
+    padding: 0;    
+}
+
+label {
+    font-size: 16px;
+    font-weight: 550;
+}
+
+input,
+textarea,
+select {
+    background-color: #ffffff;
+    border: 2px solid  #800000;
+    border-radius: 5px;
+    padding: 5px;
+}
+
+input[type = submit]:hover,
+input[type = reset]:hover,
+input[type = date]:hover,
+select:hover {
+    background-color: #dddddd;
+}
+
+input[type = date] {
+    width: 100%;
+    height: 35px;
+    margin: 10px 0;
+    padding: 5px;
+    box-sizing: border-box;
+}
+
+select {
+    width: 100%;
+    height: 35px;
+    margin: 10px 0;
+    padding: 5px;
+    box-sizing: border-box;
+}
+
+.singletext {
+    width: 98%;
+}
+
+.singletext input[type = text],
+.singletext input[type = tel],
+.singletext input[type = email],
+.singletext input[type = password] {
+    width: 100%;
+    height: 35px;
+    margin: 10px 0;
+    box-sizing: border-box;
+}
+
+.twintext {
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+}
+
+.twintext div {
+    margin-right: 20px;
+    flex-grow: 1;
+}
+.twintext div input[type="text"],
+.twintext div input[type="tel"],
+.twintext div input[type="email"] {
+    width: 100%;
+    height: 35px;
+    margin: 10px 0;
+    box-sizing: border-box;
+}
+
+.selectdiv {
+    width: 100%;
+}
+
+
+.textareadiv {
+    width: 100%;
+}
+
+.textareadiv textarea {
+    width: inherit;
+    height: 100px;
+    margin: 10px 0;
+    padding: 5px;
+    box-sizing: border-box;
+    resize: none;
+}
+
+.subres {
+    width: 100%;
+    height: auto;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+.subres input[type = submit], 
+.subres input[type = reset] {
+    margin: 0px 15px;
+    padding: 10px;
+}
 
 /* footer */
 
