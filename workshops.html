@@ -9,8 +9,8 @@
 <body>
     <header class="white-text">
         <div class="top">
-            <img class="logo" src="styles/images/logo.jpg">
-            <div id="title"><a href=index.html>root flower</a></div>
+            <img class="logo" src="styles/images/logo.jpg" alt="Root Flower Logo">
+            <div id="title"><a href="index.html">root flower</a></div>
         </div>
         <nav>
             <ul class="nav-menu">
@@ -47,29 +47,194 @@
         </nav>
     </header>
 
-    <div class="content">
+    <main class="content">
+        <h1>Floral Workshops</h1>
 
-    </div>
+        <!-- ======================
+             Workshop Cards Section
+        ====================== -->
+        <div class="workshop-container">
 
- <footer class="white-text">
+            <!-- Card 1 -->
+            <div class="workshop-card">
+                <img src="styles/images/handtied.jpg" alt="Hand-tied Bouquet Workshop">
+                <div class="workshop-overlay">
+                    <h2>Hand-Tied Bouquet</h2>
+                    <p>2 Days | 5 Classes</p>
+                    <a href="#handtied-row" class="btn" onclick="highlightRow('handtied-row')">Read More</a>
+                </div>
+            </div>
+
+            <!-- Card 2 -->
+            <div class="workshop-card">
+                <img src="styles/images/florist.jpg" alt="Florist-to-Be Workshop">
+                <div class="workshop-overlay">
+                    <h2>Florist-To-Be 1 & 2</h2>
+                    <p>4 Days | 9 Classes</p>
+                    <a href="#florist-row" class="btn" onclick="highlightRow('florist-row')">Read More</a>
+                </div>
+            </div>
+
+            <!-- Card 3 -->
+            <div class="workshop-card">
+                <img src="styles/images/hobby.jpg" alt="Hobby Class">
+                <div class="workshop-overlay">
+                    <h2>Hobby Class</h2>
+                    <p>1 Class per Month<br>18 Oct | 13 Sep | 30 Aug</p>
+                    <a href="#hobby-row" class="btn" onclick="highlightRow('hobby-row')">Read More</a>
+                </div>
+            </div>
+
+        </div>
+        
+        <!-- ======================
+             Workshop Benefits Section
+        ====================== -->
+        <section class="benefits-section">
+            <h2>Workshop Benefits</h2>
+            <ul>
+                <li>🌸 Learn directly from experienced florists</li>
+                <li>🌼 All tools and fresh flowers provided</li>
+                <li>💐 Take home your own bouquet or creation</li>
+                <li>🌻 Meet new people who share your love for flowers</li>
+                <li>🪻 Discover seasonal flower arrangement techniques</li>
+            </ul>
+        </section>
+
+        <!-- ======================
+             Workshop Course Table
+        ====================== -->
+        <section class="course-table-section">
+            <h2>Types of Flower Art in Each Workshop</h2>
+            <table class="course-table">
+                <thead>
+                    <tr>
+                        <th>Workshop Course</th>
+                        <th>Flower Arrangements & Crafts Offered</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr id="handtied-row">
+                        <td>Hand-Tied Bouquet</td>
+                        <td>
+                            Spiral Handtied – Round Layers<br>
+                            Single Stalk Bouquet<br>
+                            Spiral Handtied – Classic Layers<br>
+                            Korean Bouquet<br>
+                            Russian Bouquet<br>
+                            Mix Flowers Bouquet
+                        </td>
+                    </tr>
+                    <tr id="florist-row">
+                        <td>Florist-To-Be 1 & 2</td>
+                        <td>
+                            Korean Bouquet<br>
+                            Spiral Handtied – Round Layers<br>
+                            Russian Bouquet<br>
+                            Mix Flowers Bouquet<br>
+                            Spiral Handtied – Classic Layers<br>
+                            Single Stalk Bouquet<br>
+                            Bridal Bouquet<br>
+                            Boutineer<br>
+                            Flowers Basket<br>
+                            Centerpiece<br>
+                            Flowers Stand<br>
+                            Flowers Box<br>
+                            Mirror Flowers Stand
+                        </td>
+                    </tr>
+                    <tr id="hobby-row">
+                        <td>Hobby Class</td>
+                        <td>
+                            Mix Flowers Bouquet<br>
+                            Seasonal Special Arrangement (varies monthly)
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+
+        <!-- Registration Aside -->
+    <aside class="registration-aside">
+      <h2>Ready to Join a Workshop?</h2>
+      <p>
+        🌸 We’d love to see you at one of our upcoming classes!  
+        Simply fill out the <a href="workshop_form.html">Workshop Registration Form</a>  
+        to reserve your spot and start your floral journey today.
+      </p>
+      <p>
+        🌼 Want more perks? Become a member and enjoy exclusive discounts on future workshops!  
+        Visit our <a href="promo.html">Promotions Page</a> to learn more.
+      </p>
+    </aside>
+  </main>
+    </main>
+
+    <!-- ======================
+         Footer Section
+    ====================== -->
+    <footer class="white-text">
         <div class="fabout">
             About Us:
             <ul class="aboutlist">
                 <li><a href="aboutme1.html">Azmain Taraqqi</a></li>
-                <li><a href="aboutme4.html">Chan Chun Hui</a></li>
             </ul>
         </div>
         <div class="fcontact">
             Contact Us:
             <ul class="contactlist">
-                <li>
-                    <a href="mailto:105804016@students.swinburne.edu.my">105804016@students.swinburne.edu.my</a>
-                </li>
-                <li>
-                    <a href="mailto:101235900@students.swinburne.edu.my">101235900@students.swinburne.edu.my</a>
-                </li>
+                <li><a href="mailto:105804016@students.swinburne.edu.my">105804016@students.swinburne.edu.my</a></li>
             </ul>
         </div>
     </footer>
+
+    <!-- ======================
+         Smooth Scroll & Highlight JS
+    ====================== -->
+<script>
+// Smooth custom scroll with adjustable duration
+function smoothScrollTo(targetY, duration = 1500) {
+  const startY = window.pageYOffset;
+  const distance = targetY - startY;
+  const startTime = performance.now();
+
+  function scrollStep(currentTime) {
+    const elapsed = currentTime - startTime;
+    const progress = Math.min(elapsed / duration, 1);
+    const easeInOut = progress < 0.5
+      ? 2 * progress * progress
+      : -1 + (4 - 2 * progress) * progress; // smooth easing curve
+
+    window.scrollTo(0, startY + distance * easeInOut);
+
+    if (elapsed < duration) requestAnimationFrame(scrollStep);
+  }
+
+  requestAnimationFrame(scrollStep);
+}
+
+function highlightRow(rowId) {
+  const row = document.getElementById(rowId);
+  if (row) {
+    // Get position and apply an offset so it stops slightly above
+    const elementTop = row.getBoundingClientRect().top + window.pageYOffset;
+    const offset = 180;
+    const targetY = elementTop - offset;
+
+    
+    smoothScrollTo(targetY, 2000); // 2000ms = 2 seconds scroll duration
+
+    // Wait until scroll ends, then highlight
+    setTimeout(() => {
+      row.classList.add("highlighted");
+
+      // Remove highlight after 5 seconds
+      setTimeout(() => {
+        row.classList.remove("highlighted");
+      }, 5000);
+    }, 2100);
+  }
+}
+</script>
 </body>
 </html>
