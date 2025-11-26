@@ -3,6 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="author" content="Wei Hang Lee, Azmain Taraqqi">
+    <meta name="keywords" content="HTML5, Root Flower, Products, Bouquets">
+    <meta name="description" content="Product page for Root Flower">
     <link href="styles/style.css" rel="stylesheet">
     <title>Hand Bouquets - Root Flower</title>
 </head>
@@ -47,9 +50,10 @@
         </nav>
     </header>
 
-    <div class="content">
+    <main class="product-content">
+        <h1>Hand Bouquets</h1>
         <section>
-            <h1>Hand Bouquets</h1>
+            <h2>For everyday displays of love.</h2>
             <p>
                 Hand bouquets are timeless gifts that convey emotions and appreciation. 
                 At <strong>Root Flower</strong>, our florists carefully curate each bouquet 
@@ -57,70 +61,90 @@
                 or spontaneous gestures of love.
             </p>
 
-            <div class="gallery">
+            <div class="product-gallery" id="product-gallery">
                 <figure>
-                    <img src="images/handbouquet1.jpg" alt="Classic Red Rose Bouquet" width="300">
+                    <img src="images/Bouquets/handbouquet1.jpg" alt="Classic Red Rose Bouquet">
                     <figcaption>Classic Red Roses Bouquet — a romantic timeless choice.</figcaption>
                 </figure>
                 <figure>
-                    <img src="images/handbouquet2.jpg" alt="Snow White Bouquet" width="300">
+                    <img src="images/Bouquets/handbouquet2.jpg" alt="Snow White Bouquet">
                     <figcaption>Snow White Bouquet — soft tones of elegance and charm.</figcaption>
                 </figure>
                 <figure>
-                    <img src="images/handbouquet3.jpg" alt="Sunflower Mix Bouquet" width="300">
+                    <img src="images/Bouquets/handbouquet3.jpg" alt="Sunflower Mix Bouquet">
                     <figcaption>Sunflower Mix Bouquet — bright, cheerful, and full of life.</figcaption>
                 </figure>
                 <figure>
-                    <img src="images/handbouquet4.jpg" alt="Gerbera Mix" width="300">
+                    <img src="images/Bouquets/handbouquet4.jpg" alt="Gerbera Mix">
                     <figcaption>Gerbera Mix — a variety of vibrant and bright colors of red, pink, orange, yellow and white.</figcaption>
                 </figure>
             </div>
         </section>
 
+        <div class="product-main">
+            <aside class="product-aside">
+                <h2>Flower Care Tips</h3>
+                <p>
+                    Trim stems diagonally before placing in water. Change water every 2 days to keep flowers fresh. Avoid direct sunlight or heat exposure.
+                </p>
+                <p>
+                    💐 Join our <a href="workshop_form.html">bouquet-making workshop</a> to learn how to 
+                    craft your own floral masterpiece!
+                </p>
+            </aside>
+            <div class="product-align">
+                <!-- <section class="product-section">
+                    <h2>Popular Hand Bouquet Styles</h2>
+                    <div class="product-section-content">
+                        <ol>
+                            <li>Classic Red Roses Bouquet</li>
+                            <li>Snow White Bouquet</li>
+                            <li>Sunflower Mix</li>
+                            <li>Gerbera Mix</li>
+                        </ol>
+                    </div>
+                </section> -->
+                <section class="product-section">
+                    <h2>Bouquet Types</h2>
+                    <div class="product-section-content">
+                        <dl>
+                            <dt><strong>Classic Red Rose</strong></dt>
+                            <dd>Symbolizes deep love and passion; perfect for romantic occasions.</dd>
 
-        <section>
-            <h2>Popular Hand Bouquet Styles</h2>
-            <ol>
-                <li>Classic Red Roses Bouquet</li>
-                <li>Snow White Bouquet</li>
-                <li>Sunflower Mix</li>
-                <li>Gerbera Mix</li>
-            </ol>
+                            <dt><strong>Snow White Bouquet</strong></dt>
+                            <dd>Soft-toned yellow roses, carnations, blue flaxes and daisies wrapped elegantly in matte paper.</dd>
 
-            <dl>
-                <dt><strong>Classic Red Rose</strong></dt>
-                <dd>Symbolizes deep love and passion; perfect for romantic occasions.</dd>
+                            <dt><strong>Sunflower Mix</strong></dt>
+                            <dd>Brings warmth and happiness, perfect for celebrations.</dd>
 
-                <dt><strong>Snow White Bouquet</strong></dt>
-                <dd>Soft-toned yellow roses, carnations, blue flaxes and daisies wrapped elegantly in matte paper.</dd>
+                            <dt><strong>Gerbera Mix</strong></dt>
+                            <dd>Earthy and natural style suitable for casual gifting.</dd>
+                        </dl>
+                    </div>
+                </section>
+                <section class="product-section">
+                    <h2>How to order:</h2>
+                    <div class="product-section-content">
+                        <ol>
+                            <li>Browse through our collections of flower stand designs</li>
+                            <li>Select the preferred size, arrangement and color</li>
+                            <li>Enter in recipient's details and message card content</li>
+                            <li>Complete the payment and select the delivery date</li>
+                            <li>A confirmation message will be issued</li>
+                        </ol>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </main>
 
-                <dt><strong>Sunflower Mix</strong></dt>
-                <dd>Brings warmth and happiness, perfect for celebrations.</dd>
-
-                <dt><strong>Gerbera Mix</strong></dt>
-                <dd>Earthy and natural style suitable for casual gifting.</dd>
-            </dl>
-        </section>
-
-        <aside>
-            <h3>Flower Care Tips</h3>
-            <ul>
-                <li>Trim stems diagonally before placing in water.</li>
-                <li>Change water every 2 days to keep flowers fresh.</li>
-                <li>Avoid direct sunlight or heat exposure.</li>
-            </ul>
-            <p>
-                💐 Join our <a href="workshop_form.html">bouquet-making workshop</a> to learn how to 
-                craft your own floral masterpiece!
-            </p>
-        </aside>
-    </div>
-
- <footer class="white-text">
+    <footer class="white-text">
         <div class="fabout">
             About Us:
             <ul class="aboutlist">
                 <li><a href="aboutme1.html">Azmain Taraqqi</a></li>
+                <li><a href="aboutme2.html">Wei Hang Lee</a></li>
+                <li><a href="aboutme3.html">Dhirrennraj Vijayaraj</a></li>
                 <li><a href="aboutme4.html">Chan Chun Hui</a></li>
             </ul>
         </div>
@@ -129,6 +153,12 @@
             <ul class="contactlist">
                 <li>
                     <a href="mailto:105804016@students.swinburne.edu.my">105804016@students.swinburne.edu.my</a>
+                </li>
+                <li>
+                    <a href="mailto:102788735@students.swinburne.edu.my">102788735@students.swinburne.edu.my</a>
+                </li>
+                <li>
+                    <a href="mailto:102761273@students.swinburne.edu.my">102761273@students.swinburne.edu.my</a>
                 </li>
                 <li>
                     <a href="mailto:101235900@students.swinburne.edu.my">101235900@students.swinburne.edu.my</a>

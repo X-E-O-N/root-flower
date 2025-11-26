@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="author" content="Azmain Taraqqi">
+    <meta name="keywords" content="HTML5, Root Flower, Enhancements">
+    <meta name="description" content="Enhancements for Root Flower">
+    <link href="styles/style.css" rel="stylesheet">
+    <title>Home - Root Flower</title>
+</head>
+<body>
+    <header class="white-text">
+        <div class="top">
+            <img class="logo" src="styles/images/logo.jpg">
+            <div id="title"><a href=index.html>root flower</a></div>
+        </div>
+        <nav id="navbar">
+            <ul class="nav-menu">
+                <li class="dropdown">
+                    Products
+                    <ul class="dropdown-content">
+                        <li><a href="product1.html">Hand Bouquets</a></li>
+                        <li><a href="product2.html">CNY Decorations</a></li>
+                        <li><a href="product3.html">Grand Openings</a></li>
+                        <li><a href="product4.html">Graduation</a></li>
+                    </ul>
+                </li>
+                <li class="dropdown">
+                    Activities
+                    <ul class="dropdown-content">
+                        <li><a href="workshops.html">Workshops</a></li>
+                        <li><a href="promo.html">Promotions</a></li>
+                    </ul>
+                </li>
+                <li class="dropdown">
+                    Registration
+                    <ul class="dropdown-content">
+                        <li><a href="workshop_form.html">Workshop Registration</a></li>
+                        <li><a href="membership_form.html">Membership Registration</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="enquiry_form.html">Enquiry Form</a> 
+                </li>
+            </ul>
+            <div id="login">
+                <a href="login_form.html">Login</a>
+            </div>
+        </nav>
+    </header>
+
+    <main class="content">
+        <h1>Enhancements</h1>
+        <section class="enhancements-section">
+            <h2>1. Navigation Bar Animations:</h2>
+            <p>
+                <strong>Description:</strong>
+                Hovering on the navbar elements highlights them with a smooth transition (0.1s) and opens the associated dropdown menu containing anchors to other pages.
+                The elements in the dropdown menu have a smooth highlighting effect as well.
+                These effects are achieved using a combination of descendant combinators and psuedo-classes, which are beyond the scope of the curriculum.
+            </p>
+            <p>
+                <strong>Associated Code:</strong>
+                .dropdown:hover .dropdown-content {display: block;} (style.css, line 87-125)
+            </p>
+            <p>
+                <strong>Associated Element:</strong>
+                <a href="#navbar">Navigation Bar</a>
+            </p>
+            <p>
+                <strong>Source:</strong>
+                <a href="https://www.w3schools.com/css/css3_transitions.asp">W3Schools - CSS Transitions</a>
+            </p>
+        </section>
+        <section class="enhancements-section">
+            <h2>2. Image Overlay Effects:</h2>
+            <p>
+                <strong>Description:</strong>
+                Hovering on the images in the product showcase on the homepage blurs them with a smooth transition (0.3s) and displays a text overlay containing the link to the associated product page.
+                These effects are achieved using psuedo-classes and properties such as transition and opacity, which are beyond the scope of the curriculum.
+            </p>
+            <p>
+                <strong>Associated Code:</strong>
+                .products-item:hover img {opacity: 0.5;} (style.css line 167-208)
+            </p>
+            <p>
+                <strong>Associated Element:</strong>
+                <a href="index.html#products-showcase">Products Showcase</a>
+            </p>
+            <p>
+                <strong>Source:</strong>
+                <a href="https://www.w3schools.com/howto/howto_css_image_overlay.asp">W3Schools - Image Hover Overlay</a>
+            </p>
+        </section>
+        <section class="enhancements-section">
+            <h2>3. Grid Layout:</h2>
+            <p>
+                <strong>Description:</strong>
+                The product glossaries in the product pages are arranged in a grid-like pattern using the grid property on the container.
+                Additionally, the images have a smooth enlargement effect upon hovering thanks to the use of psuedo classes and properties such as transition and scale.
+                These concepts are beyond the scope of the curriculum.
+            </p>
+            <p>
+                <strong>Associated Code:</strong>
+                .product-gallery {display: grid;} (style.css line 538, 653-666)
+            </p>
+            <p>
+                <strong>Associated Element:</strong>
+                <a href="product1.html#product-gallery">Products Gallery</a>
+            </p>
+            <p>
+                <strong>Source:</strong>
+                <a href="https://www.w3schools.com/css/css_grid.asp">W3Schools - CSS Grid Layout Module</a>
+            </p>
+        </section>
+        <section class="enhancements-section">
+            <h2>4. Animated Gradient Buttons:</h2>
+            <p>
+                <strong>Description:</strong>
+                The buttons in the aside sections of workshop and promo pages have moving gradient backgrounds and increase in opacity and size when hovered over.
+                These features are implemented using @keyframes rules, which are beyond the scope of the curriculum.
+            </p>
+            <p>
+                <strong>Associated Code:</strong>
+                @keyframes gradientMove { 0% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } 100% { background-position: 0% 50%; } }
+            </p>
+            <p>
+                <strong>Associated Element:</strong>
+                <a href="workshops.html#gradient-button">Workshops Aside</a>
+            </p>
+            <p>
+                <strong>Source:</strong>
+                <a href="https://www.w3schools.com/cssref/atrule_keyframes.php">W3Schools - CSS @keyframes Rules</a>
+            </p>
+        </section>
+    </main>
+
+    <footer class="white-text">
+        <div class="fabout">
+            About Us:
+            <ul class="aboutlist">
+                <li><a href="aboutme1.html">Azmain Taraqqi</a></li>
+                <li><a href="aboutme2.html">Wei Hang Lee</a></li>
+                <li><a href="aboutme3.html">Dhirrennraj Vijayaraj</a></li>
+                <li><a href="aboutme4.html">Chan Chun Hui</a></li>
+            </ul>
+        </div>
+        <div class="fcontact">
+            Contact Us:
+            <ul class="contactlist">
+                <li>
+                    <a href="mailto:105804016@students.swinburne.edu.my">105804016@students.swinburne.edu.my</a>
+                </li>
+                <li>
+                    <a href="mailto:102788735@students.swinburne.edu.my">102788735@students.swinburne.edu.my</a>
+                </li>
+                <li>
+                    <a href="mailto:102761273@students.swinburne.edu.my">102761273@students.swinburne.edu.my</a>
+                </li>
+                <li>
+                    <a href="mailto:101235900@students.swinburne.edu.my">101235900@students.swinburne.edu.my</a>
+                </li>
+            </ul>
+        </div>
+    </footer>
+</body>
+</html>

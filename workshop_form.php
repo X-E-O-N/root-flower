@@ -1,72 +1,44 @@
+<?php 
+session_start(); 
+include('header.inc');
+ ?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="author" content="Azmain Taraqqi">
+  <meta name="keywords" content="HTML5, Root Flower, Workshops, Form">
+  <meta name="description" content="Workshop registration form for Root Flower">
     <link href="styles/style.css" rel="stylesheet">
     <title>Workshop Registration - Root Flower</title>
 </head>
 <body>
-    <header class="white-text">
-        <div class="top">
-            <img class="logo" alt="logo" src="styles/images/logo.jpg">
-            <div id="title"><a href=index.html>root flower</a></div>
-        </div>
-        <nav>
-            <ul class="nav-menu">
-                <li class="dropdown">
-                    Products
-                    <ul class="dropdown-content">
-                        <li><a href="product1.html">Hand Bouquets</a></li>
-                        <li><a href="product2.html">CNY Decorations</a></li>
-                        <li><a href="product3.html">Grand Openings</a></li>
-                        <li><a href="product4.html">Graduation</a></li>
-                    </ul>
-                </li>
-                <li class="dropdown">
-                    Activities
-                    <ul class="dropdown-content">
-                        <li><a href="workshops.html">Workshops</a></li>
-                        <li><a href="promo.html">Promotions</a></li>
-                    </ul>
-                </li>
-                <li class="dropdown">
-                    Registration
-                    <ul class="dropdown-content">
-                        <li><a href="workshop_form.html">Workshop Registration</a></li>
-                        <li><a href="membership_form.html">Membership Registration</a></li>
-                    </ul>
-                </li>
-                <li>
-                    <a href="enquiry_form.html">Enquiry Form</a> 
-                </li>
-            </ul>
-            <div id="login">
-                <a href="login_form.html">Login</a>
-            </div>
-        </nav>
-    </header>
 
-    <div class="content">
+    <main class="content">
 
         <h1>Workshop Registration Form</h1>
-        <form method="post" action="mailto:105804016@students.swinburne.edu.my">
+        <form method="post" action="register_process.php">
             <fieldset>
                 <legend>Personal Details</legend>
                 <div class="twintext">
                     <div>
                         <label for="first_name">First Name:</label>
-                        <input type="text" name="first_name" id="first_name" pattern="[a-zA-Z]{0-25}" required="required">
+                        <input type="text" name="first_name" id="first_name" 
+                         value="<?= $_SESSION['first_name'] ?? '' ?>" pattern="[a-zA-Z]{0-25}" required="required">
                     </div>
                     <div>
                         <label for="last_name">Last Name:</label>
-                        <input type="text" name="last_name" id="last_name" pattern="[a-zA-Z]{0-25}" required="required">
+                        <input type="text" name="last_name" id="last_name" 
+                         value="<?= $_SESSION['last_name'] ?? '' ?>" pattern="[a-zA-Z]{0-25}" required="required">
                     </div>
                 </div>
                 <div class="twintext">
                     <div>
                         <label for="email">Email:</label>
-                        <input type="email" name="email" id="email" size="20" required="required">
+                        <input type="email" name="email" id="email"
+                         value="<?= $_SESSION['email'] ?? '' ?>" size="20" required="required">
                     </div>
                     <div>
                         <label for="phone">Phone Number:</label>
@@ -133,27 +105,8 @@
                 <input type="reset" value="Reset">
             </div>    
         </form>
-    </div>
+    </main>
 
- <footer class="white-text">
-        <div class="fabout">
-            About Us:
-            <ul class="aboutlist">
-                <li><a href="aboutme1.html">Azmain Taraqqi</a></li>
-                <li><a href="aboutme4.html">Chan Chun Hui</a></li>
-            </ul>
-        </div>
-        <div class="fcontact">
-            Contact Us:
-            <ul class="contactlist">
-                <li>
-                    <a href="mailto:105804016@students.swinburne.edu.my">105804016@students.swinburne.edu.my</a>
-                </li>
-                <li>
-                    <a href="mailto:101235900@students.swinburne.edu.my">101235900@students.swinburne.edu.my</a>
-                </li>
-            </ul>
-        </div>
-    </footer>
+    <?php include('footer.inc'); ?>
 </body>
 </html>

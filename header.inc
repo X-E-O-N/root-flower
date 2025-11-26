@@ -26,23 +26,23 @@
                 <li class="dropdown">
                     Activities
                     <ul class="dropdown-content">
-                        <li><a href="workshops.html">Workshops</a></li>
+                        <li><a href="workshops.php">Workshops</a></li>
                         <li><a href="promo.html">Promotions</a></li>
                     </ul>
                 </li>
                 <li class="dropdown">
                     Registration
                     <ul class="dropdown-content">
-                        <li><a href="workshop_form.html">Workshop Registration</a></li>
-                        <li><a href="membership_form.html">Membership Registration</a></li>
+                        <li><a href="workshop_form.php">Workshop Registration</a></li>
+                        <li><a href="membership_form.php">Membership Registration</a></li>
                     </ul>
                 </li>
                 <li>
-                    <a href="enquiry_form.html">Enquiry Form</a> 
+                    <a href="enquiry_form.php">Enquiry Form</a> 
                 </li>
             </ul>
             <div id="login">
-                <a href="login_form.html">Login</a>
+                <a href="login_form.php">Login</a>
             </div>
         </nav>
     </header>
