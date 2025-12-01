@@ -17,7 +17,7 @@
     <main class="content">
 
         <h1>Workshop Registration Form</h1>
-        <form method="post" action="register_process.php">
+        
         <form method="post" action="register_process.php">
             <fieldset>
                 <legend>Personal Details</legend>

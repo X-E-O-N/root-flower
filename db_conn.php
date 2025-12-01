@@ -3,7 +3,7 @@
 define('DB_HOST', 'localhost');
 define('DB_USER', 'root');
 define('DB_PASS', '');
-define('DB_NAME', 'root_flower_db');
+define('DB_NAME', 'root_flower');
 
 // Create connection
 $conn = new mysqli(DB_HOST, DB_USER, DB_PASS);

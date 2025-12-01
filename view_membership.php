@@ -16,7 +16,7 @@ $r=$conn->query("SELECT * FROM user");
 <tr>
 <td><?= $row['username']?></td>
 <td><?= $row['email']?></td>
-<td><?= $row['created_at']?></td>
+<td><?= htmlspecialchars($row['created_at'] ?? '') ?></td>
 </tr>
 <?php endwhile;?>
 </table>

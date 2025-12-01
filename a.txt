@@ -1,0 +1,1198 @@
+let me add all of the necessary files in their current state. wait until i say i'm done.
+
+admin_dashboard.php:
+<?php
+session_start();
+include 'header.inc';
+
+// Check if admin session exists
+if (!isset($_SESSION['role']) || $_SESSION['role'] !== 'admin') {
+   echo "<main class='content'><h1>Access Denied ❌</h1></main>";
+   include 'footer.inc';
+   exit();
+}
+?>
+
+<main class="content">
+ <h1>Admin Dashboard</h1>
+ <form>
+   <fieldset>
+     <legend>Welcome, Admin 🌸</legend>
+     <p>You are logged in as <strong>Administrator</strong>.</p>
+     <p>To view submissions, use the direct URLs (for marking) or use your database management interface:</p>
+     <ul>
+       <li>View register entries: <code>/view_register.php</code></li>
+       <li>View enquiries: <code>/view_enquiry.php</code></li>
+       <li>View memberships: <code>/view_membership.php</code></li>
+     </ul>
+   </fieldset>
+
+   <div class="subres">
+     <a href="logout.php" class="aside-btn">Sign Out</a>
+   </div>
+ </form>
+</main>
+
+<?php include 'footer.inc'; ?>
+
+
+admin_user_add.php:
+<?php
+session_start();
+include 'header.inc';
+if ($_SESSION['role'] !== 'admin') die("Access Denied");
+
+$conn = new mysqli("localhost","root","","root_flower",3307);
+
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    $first = trim($_POST['first_name']);
+    $last = trim($_POST['last_name']);
+    $username = trim($_POST['username']);
+    $email = trim($_POST['email']);
+    $password = password_hash($_POST['password'], PASSWORD_DEFAULT);
+
+    $stmt = $conn->prepare("INSERT INTO user (first_name,last_name,username,email,password) VALUES (?,?,?,?,?)");
+    $stmt->bind_param("sssss", $first,$last,$username,$email,$password);
+    $stmt->execute();
+
+    header("Location: admin_users.php?added=1");
+    exit();
+}
+?>
+
+<main class="content">
+    <h1>Add New User</h1>
+    <form method="post">
+        <label>First Name:</label>
+        <input type="text" name="first_name" required>
+
+        <label>Last Name:</label>
+        <input type="text" name="last_name" required>
+
+        <label>Username:</label>
+        <input type="text" name="username" required>
+
+        <label>Email:</label>
+        <input type="email" name="email" required>
+
+        <label>Password:</label>
+        <input type="password" name="password" required>
+
+        <div class="subres">
+            <input type="submit" value="Create User">
+        </div>
+    </form>
+</main>
+
+<?php include 'footer.inc'; ?>
+
+
+admin_user_delete.php:
+<?php
+session_start();
+if (!isset($_SESSION['role']) || $_SESSION['role'] !== 'admin') {
+    die("Access Denied");
+}
+
+$id = intval($_GET['id']);
+
+$conn = new mysqli("localhost", "root", "", "root_flower", 3307);
+$stmt = $conn->prepare("DELETE FROM user WHERE id=?");
+$stmt->bind_param("i", $id);
+$stmt->execute();
+
+header("Location: admin_users.php?deleted=1");
+exit();
+?>
+
+
+admin_user_edit.php:
+<?php
+session_start();
+include 'header.inc';
+
+if ($_SESSION['role'] !== 'admin') die("Access Denied");
+
+$conn = new mysqli("localhost", "root", "", "root_flower", 3307);
+
+$id = intval($_GET['id']);
+$stmt = $conn->prepare("SELECT first_name, last_name, username, email FROM user WHERE id=?");
+$stmt->bind_param("i", $id);
+$stmt->execute();
+$result = $stmt->get_result();
+$user = $result->fetch_assoc();
+
+if (!$user) die("User Not Found");
+
+// UPDATE HANDLER
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    $first = trim($_POST['first_name']);
+    $last = trim($_POST['last_name']);
+    $email = trim($_POST['email']);
+
+    $update = $conn->prepare("UPDATE user SET first_name=?, last_name=?, email=? WHERE id=?");
+    $update->bind_param("sssi", $first, $last, $email, $id);
+    $update->execute();
+
+    header("Location: admin_users.php?updated=1");
+    exit();
+}
+?>
+
+<main class="content">
+    <h1>Edit User</h1>
+    <form method="post">
+        <label>First Name:</label>
+        <input type="text" name="first_name" value="<?= htmlspecialchars($user['first_name']) ?>" required>
+
+        <label>Last Name:</label>
+        <input type="text" name="last_name" value="<?= htmlspecialchars($user['last_name']) ?>" required>
+
+        <label>Email:</label>
+        <input type="email" name="email" value="<?= htmlspecialchars($user['email']) ?>" required>
+
+        <div class="subres">
+            <input type="submit" value="Save Changes">
+        </div>
+    </form>
+</main>
+
+<?php include 'footer.inc'; ?>
+
+
+admin_users.php:
+<?php
+session_start();
+include 'header.inc';
+
+if (!isset($_SESSION['role']) || $_SESSION['role'] !== 'admin') {
+    die("<main class='content'><h1>Access Denied</h1></main>");
+}
+
+$conn = new mysqli("localhost", "root", "", "root_flower", 3307);
+$result = $conn->query("SELECT * FROM user ORDER BY id DESC");
+?>
+
+<main class="content">
+    <h1>User Management</h1>
+    <a class="aside-btn" href="admin_user_add.php">Add New User</a>
+
+    <table border='1' class="admin-table">
+        <tr>
+            <th>ID</th><th>Name</th><th>Username</th><th>Email</th><th>Actions</th>
+        </tr>
+
+        <?php while($row = $result->fetch_assoc()): ?>
+        <tr>
+            <td><?= $row['id'] ?></td>
+            <td><?= htmlspecialchars($row['first_name']." ".$row['last_name']) ?></td>
+            <td><?= htmlspecialchars($row['username']) ?></td>
+            <td><?= htmlspecialchars($row['email']) ?></td>
+            <td>
+                <a href="admin_user_edit.php?id=<?= $row['id'] ?>">Edit</a> |
+                <a href="admin_user_delete.php?id=<?= $row['id'] ?>" 
+                   onclick="return confirm('Delete this user?');">Delete</a>
+            </td>
+        </tr>
+        <?php endwhile; ?>
+    </table>
+
+</main>
+<?php include 'footer.inc'; ?>
+
+
+db_conn.php:
+<?php
+// Database connection configuration
+define('DB_HOST', 'localhost');
+define('DB_USER', 'root');
+define('DB_PASS', '');
+define('DB_NAME', 'root_flower_db');
+
+// Create connection
+$conn = new mysqli(DB_HOST, DB_USER, DB_PASS);
+
+// Check connection
+if ($conn->connect_error) {
+    die("Connection failed: " . $conn->connect_error);
+}
+
+// Create database if it doesn't exist
+$sql = "CREATE DATABASE IF NOT EXISTS " . DB_NAME;
+if ($conn->query($sql) === FALSE) {
+    die("Error creating database: " . $conn->error);
+}
+
+// Select the database
+$conn->select_db(DB_NAME);
+
+?>
+
+
+db.php:
+<?php
+// Include database connection
+require_once 'db_conn.php';
+
+// Create Enquiry table
+$sql_enquiry = "CREATE TABLE IF NOT EXISTS enquiry (
+    id INT(11) AUTO_INCREMENT PRIMARY KEY,
+    first_name VARCHAR(25) NOT NULL,
+    last_name VARCHAR(25) NOT NULL,
+    email VARCHAR(100) NOT NULL,
+    phone VARCHAR(12) NOT NULL,
+    enquiry_type VARCHAR(50) NOT NULL,
+    comment TEXT NOT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+)";
+
+if ($conn->query($sql_enquiry) === TRUE) {
+    
+} else {
+    echo "Error creating table 'enquiry': " . $conn->error . "<br>";
+}
+
+// Create Register table (Workshop Registration)
+$sql_register = "CREATE TABLE IF NOT EXISTS register (
+    id INT(11) AUTO_INCREMENT PRIMARY KEY,
+    first_name VARCHAR(25) NOT NULL,
+    last_name VARCHAR(25) NOT NULL,
+    email VARCHAR(100) NOT NULL,
+    phone VARCHAR(12) NOT NULL,
+    address VARCHAR(40) NOT NULL,
+    city VARCHAR(20) NOT NULL,
+    state VARCHAR(50) NOT NULL,
+    postcode VARCHAR(5) NOT NULL,
+    participants INT(2) NOT NULL,
+    preferred_date DATE NOT NULL,
+    comments TEXT,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+)";
+
+if ($conn->query($sql_register) === TRUE) {
+   
+} else {
+    echo "Error creating table 'register': " . $conn->error . "<br>";
+}
+
+// Create Membership table
+$sql_membership = "CREATE TABLE IF NOT EXISTS membership (
+    id INT(11) AUTO_INCREMENT PRIMARY KEY,
+    first_name VARCHAR(25) NOT NULL,
+    last_name VARCHAR(25) NOT NULL,
+    email VARCHAR(100) NOT NULL,
+    login_id VARCHAR(10) NOT NULL UNIQUE,
+    password VARCHAR(255) NOT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+)";
+
+if ($conn->query($sql_membership) === TRUE) {
+    
+} else {
+    echo "Error creating table 'membership': " . $conn->error . "<br>";
+}
+
+
+
+// Close connection
+$conn->close();
+?>
+
+
+enquiry_form.php:
+<?php session_start(); ?>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+   <meta charset="UTF-8">
+   <title>Enquiry Form - Root Flower</title>
+   <link href="styles/style.css" rel="stylesheet">
+</head>
+<body>
+   <?php include 'header.inc'; ?>
+
+   <main class="content">
+       <h1>Enquiry Form</h1>
+       <form method="post" action="enquiry_process.php" novalidate>
+           <fieldset>
+               <legend>Personal Details</legend>
+               <div class="twintext">
+                   <div>
+                       <label for="first_name">First Name:</label>
+                       <input type="text" name="first_name" id="first_name"
+                        value="<?= htmlspecialchars($_SESSION['first_name'] ?? '') ?>" pattern="[A-Za-z]{1,25}" required>
+                   </div>
+                   <div>
+                       <label for="last_name">Last Name:</label>
+                       <input type="text" name="last_name" id="last_name"
+                       value="<?= htmlspecialchars($_SESSION['last_name'] ?? '') ?>" pattern="[A-Za-z]{1,25}" required>
+                   </div>
+               </div>
+               <div class="twintext">
+                   <div>
+                       <label for="email">Email:</label>
+                       <input type="email" name="email" id="email"
+                       value="<?= htmlspecialchars($_SESSION['email'] ?? '') ?>" required>
+                   </div>
+                   <div>
+                       <label for="phone">Phone Number:</label>
+                       <input type="tel" name="phone" id="phone" pattern="[0-9]{8,15}" placeholder="+60-123456789" required>
+                   </div>
+               </div>
+           </fieldset>
+           <fieldset>
+               <legend>Enquiry Details</legend>
+               <div class="selectdiv">
+                   <label for="enquiry-type">Enquiry Type:</label>
+                   <select name="enquiry-type" id="enquiry-type" required>
+                       <option value="" selected>None</option>
+                       <option value="product">Product</option>
+                       <option value="workshop">Workshop</option>
+                       <option value="membership">Membership</option>
+                       <option value="other">Other</option>
+                   </select>
+               </div>
+               <div class="textareadiv">
+                   <label for="comment">Enquiry:</label>
+                   <textarea name="comment" id="comment" required></textarea>
+               </div>
+           </fieldset>
+           <div class="subres">
+               <input type="submit" value="Submit">
+               <input type="reset" value="Reset">
+           </div>
+       </form>
+   </main>
+
+   <?php include('footer.inc'); ?>
+</body>
+</html>
+
+
+enquiry_process.php:
+<?php
+session_start();
+include 'header.inc';
+
+// Database connection
+$conn = new mysqli("localhost", "root", "", "root_flower", 3307);
+
+if($conn->connect_error){
+   die("<main class='content'><h1>Database Connection Failed ❌</h1><p>" . htmlspecialchars($conn->connect_error) . "</p></main>");
+}
+
+// Get form input values (sanitise)
+$first   = trim($_POST['first_name'] ?? '');
+$last    = trim($_POST['last_name'] ?? '');
+$email   = trim($_POST['email'] ?? '');
+$phone   = trim($_POST['phone'] ?? '');
+$type    = trim($_POST['enquiry-type'] ?? '');
+$comment = trim($_POST['comment'] ?? '');
+
+// Anti-Spam Rate Limiter
+$ip = $_SERVER['REMOTE_ADDR'];
+$window_seconds = 600; // 10 minutes
+$max_attempts = 5;
+
+// Check previous attempts
+$check = $conn->prepare("SELECT attempts, last_attempt FROM spam_block WHERE ip = ?");
+$check->bind_param("s", $ip);
+$check->execute();
+$check->store_result();
+$check->bind_result($attempts, $last_attempt_time);
+
+if ($check->num_rows > 0) {
+    $check->fetch();
+    $time_since_last = time() - strtotime($last_attempt_time);
+
+    if ($time_since_last < $window_seconds && $attempts >= $max_attempts) {
+        echo "<main class='content'><h1>Slow Down ⏳</h1>
+        <p>You have submitted too many enquiries recently.</p>
+        <p>Please wait a few minutes before trying again.</p>
+        <a href='index.php' class='aside-btn'>Return Home</a></main>";
+        include 'footer.inc';
+        exit();
+    }
+    
+    // Update attempts
+    if ($time_since_last < $window_seconds) {
+        $update = $conn->prepare("UPDATE spam_block SET attempts = attempts + 1 WHERE ip = ?");
+        $update->bind_param("s", $ip);
+        $update->execute();
+    } else {
+        // reset expired window
+        $reset = $conn->prepare("UPDATE spam_block SET attempts = 1 WHERE ip = ?");
+        $reset->bind_param("s", $ip);
+        $reset->execute();
+    }
+
+} else {
+    // first time submission
+    $insert_ip = $conn->prepare("INSERT INTO spam_block (ip, attempts) VALUES (?, 1)");
+    $insert_ip->bind_param("s", $ip);
+    $insert_ip->execute();
+}
+
+
+// Validate required fields
+if(empty($first) || empty($last) || empty($email) || empty($phone) || empty($type) || empty($comment)){
+   echo "<main class='content'><h1>Submission Failed ❌</h1><p>Please fill in <strong>all input fields</strong> before submitting.</p><p><a href='enquiry_form.php' class='aside-btn'>Return to Form</a></p></main>";
+   include('footer.inc');
+   exit();
+}
+
+// Insert into enquiry table
+$sql = "INSERT INTO enquiry (first_name, last_name, email, phone, enquiry_type, comment)
+       VALUES (?, ?, ?, ?, ?, ?)";
+
+$stmt = $conn->prepare($sql);
+if(!$stmt){
+   die("<main class='content'><h1>Database Error ❌</h1><p>".htmlspecialchars($conn->error)."</p></main>");
+}
+$stmt->bind_param("ssssss", $first, $last, $email, $phone, $type, $comment);
+$stmt->execute();
+
+// SUCCESS DISPLAY
+echo "<main class='content'><h1>Enquiry Submitted Successfully 📩</h1><fieldset><legend>Thank You, " . htmlspecialchars($first) . "!</legend><p>Your enquiry has been received and stored in our database. We will contact you via email soon.</p></fieldset><div class='subres'><a href='index.php' class='aside-btn'>Return to Homepage</a></div></main>";
+
+$stmt->close();
+$conn->close();
+
+include 'footer.inc';
+?>
+
+
+login_form.php:
+<?php session_start();
+
+// Redirect logged-in users
+if (isset($_SESSION['role'])) {
+    if ($_SESSION['role'] === 'admin') {
+        header("Location: admin_dashboard.php?status=already_logged_in");
+        exit();
+    } elseif ($_SESSION['role'] === 'user') {
+        header("Location: user_dashboard.php?status=already_logged_in");
+        exit();
+    }
+}
+?>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+   <meta charset="utf-8">
+   <title>Login - Root Flower</title>
+   <link href="styles/style.css" rel="stylesheet">
+</head>
+<body>
+   <?php include 'header.inc'; ?>
+   <main class="content">
+       <h1>Login</h1>
+       <form method="post" action="login_process.php" novalidate>
+           <fieldset>
+               <div class="singletext">
+                   <label for="username">Username:</label>
+                   <input type="text" name="username" id="username" pattern="[A-Za-z0-9]{4,12}" required>
+               </div>
+               <div class="singletext">
+                   <label for="password">Password:</label>
+                   <input type="password" name="password" id="password" pattern=".{6,25}" required>
+               </div>
+           </fieldset>
+           <?php if (isset($_GET['logout'])): ?>
+           <p style="color: black; font-weight: bold; font-size: 18px;">✅ You have successfully logged out!</p>
+           <?php endif; ?>
+           <div class="subres">
+               <input type="submit" class="aside-btn" value="Login">
+               <a href="membership_form.php" class="aside-btn">Sign Up</a>
+           </div>
+       </form>
+   </main>
+   <?php include 'footer.inc'; ?>
+</body>
+</html>
+
+
+login_process.php:
+<?php
+session_start();
+include 'header.inc';
+
+// DB
+$host = "localhost"; $port = 3307; $user = "root"; $pass = ""; $dbname = "root_flower";
+$conn = new mysqli($host, $user, $pass, $dbname, $port);
+if ($conn->connect_error) {
+    die("<main class='content'><h2>Database Connection Failed ❌</h2><p>" . htmlspecialchars($conn->connect_error) . "</p></main>");
+}
+
+// Inputs
+$username = trim($_POST['username'] ?? '');
+$password = $_POST['password'] ?? '';
+
+if (empty($username) || empty($password)) {
+    echo "<main class='content'><h1>Login Error</h1><p>Please fill in both username and password.</p><p><a href='login_form.php' class='aside-btn'>Return to Login</a></p></main>";
+    include 'footer.inc';
+    exit();
+}
+
+// Check admin table
+$admin_sql = "SELECT username, password FROM admin WHERE username = ?";
+$stmt = $conn->prepare($admin_sql);
+$stmt->bind_param("s", $username);
+$stmt->execute();
+$res = $stmt->get_result();
+
+if ($row = $res->fetch_assoc()) {
+    if (password_verify($password, $row['password'])) {
+        $_SESSION['role'] = "admin";
+        $_SESSION['username'] = $row['username'];
+        header("Location: admin_dashboard.php");
+        exit();
+    }
+}
+$stmt->close();
+
+// Check user table
+$user_sql = "SELECT first_name, last_name, username, email, password FROM user WHERE username = ?";
+$stmt = $conn->prepare($user_sql);
+$stmt->bind_param("s", $username);
+$stmt->execute();
+$res = $stmt->get_result();
+
+if ($row = $res->fetch_assoc()) {
+    if (password_verify($password, $row['password'])) {
+        $_SESSION['role'] = "user";
+        $_SESSION['username'] = $row['username'];
+        $_SESSION['email'] = $row['email'];
+        $_SESSION['first_name'] = $row['first_name'];
+        $_SESSION['last_name'] = $row['last_name'];
+        header("Location: user_dashboard.php");
+        exit();
+    }
+}
+
+echo "<main class='content'><h1>Login Failed ❌</h1><p>The username or password you entered is incorrect.</p><p><a href='login_form.php' class='aside-btn'>Try Again</a></p></main>";
+include 'footer.inc';
+$conn->close();
+?>
+
+
+logout.php:
+<?php
+session_start();
+session_unset();
+session_destroy();
+
+// Redirect back to login page with message
+header("Location: login_form.php?logout=1");
+exit();
+?>
+
+
+membership_form.php:
+<?php session_start(); ?>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Membership Form - Root Flower</title>
+    <link href="styles/style.css" rel="stylesheet">
+</head>
+<body>
+    <?php include 'header.inc'; ?>
+
+    <main class="content">
+        <h1>Membership Registration Form</h1>
+        <form method="post" action="membership_process.php" novalidate>
+            <fieldset>
+                <legend>Personal Details</legend>
+                <div class="twintext">
+                    <div>
+                        <label for="first_name">First Name:</label>
+                        <input type="text" name="first_name" id="first_name"
+                            value="<?= htmlspecialchars($_SESSION['first_name'] ?? '') ?>"
+                            pattern="[A-Za-z]{1,25}" required>
+                    </div>
+                    <div>
+                        <label for="last_name">Last Name:</label>
+                        <input type="text" name="last_name" id="last_name"
+                            value="<?= htmlspecialchars($_SESSION['last_name'] ?? '') ?>"
+                            pattern="[A-Za-z]{1,25}" required>
+                    </div>
+                </div>
+
+                <div class="singletext">
+                    <label for="email">Email:</label>
+                    <input type="email" name="email" id="email"
+                        value="<?= htmlspecialchars($_SESSION['email'] ?? '') ?>" required>
+                </div>
+            </fieldset>
+
+            <fieldset>
+                <legend>Account Details</legend>
+                <div class="twintext">
+                    <div>
+                        <label for="username">Username:</label>
+                        <input type="text" name="username" id="username"
+                            value="<?= htmlspecialchars($_SESSION['username'] ?? '') ?>"
+                            pattern="[A-Za-z0-9]{4,12}" required>
+                    </div>
+
+                    <div>
+                        <label for="password">Password:</label>
+                        <input type="password" name="password" id="password"
+                            pattern=".{6,25}" required>
+                    </div>
+                </div>
+            </fieldset>
+
+            <div class="subres">
+                <input type="submit" value="Submit">
+                <input type="reset" value="Reset">
+            </div>
+        </form>
+    </main>
+
+    <?php include 'footer.inc'; ?>
+</body>
+</html>
+
+
+membership_process.php:
+<?php
+session_start();
+include 'header.inc';
+
+// DB connection
+$host = "localhost"; $port = 3307; $user = "root"; $pass = ""; $dbname = "root_flower";
+$conn = new mysqli($host, $user, $pass, $dbname, $port);
+if ($conn->connect_error) {
+    die("<main class='content'><h1>Database Connection Failed ❌</h1><p>" . htmlspecialchars($conn->connect_error) . "</p></main>");
+}
+
+// Collect and sanitize
+$first    = trim($_POST['first_name'] ?? '');
+$last     = trim($_POST['last_name'] ?? '');
+$email    = trim($_POST['email'] ?? '');
+$username = trim($_POST['username'] ?? '');
+$password = $_POST['password'] ?? '';
+
+// Basic validation
+if (empty($first) || empty($last) || empty($email) || empty($username) || empty($password)) {
+    echo "<main class='content'><h1>Submission Error ❌</h1><p>Please fill in all required fields.</p><p><a href='membership_form.php' class='aside-btn'>Return to Form</a></p></main>";
+    include 'footer.inc';
+    exit();
+}
+
+// Check username uniqueness
+$chk = $conn->prepare("SELECT id FROM user WHERE username = ?");
+$chk->bind_param("s", $username);
+$chk->execute();
+$chk->store_result();
+if ($chk->num_rows > 0) {
+    echo "<main class='content'><h1>Registration Error</h1><p>Username already exists. Please choose another username.</p><p><a href='membership_form.php' class='aside-btn'>Try Again</a></p></main>";
+    include 'footer.inc';
+    $chk->close();
+    $conn->close();
+    exit();
+}
+$chk->close();
+
+// Hash password
+$hashed = password_hash($password, PASSWORD_DEFAULT);
+
+// Insert into membership
+$sql1 = "INSERT INTO membership (first_name, last_name, email, username, password) VALUES (?, ?, ?, ?, ?)";
+$stmt1 = $conn->prepare($sql1);
+$stmt1->bind_param("sssss", $first, $last, $email, $username, $hashed);
+
+// Insert into user (for login)
+$sql2 = "INSERT INTO user (first_name, last_name, username, email, password) VALUES (?, ?, ?, ?, ?)";
+$stmt2 = $conn->prepare($sql2);
+$stmt2->bind_param("sssss", $first, $last, $username, $email, $hashed);
+
+// Execute
+echo "<main class='content'>";
+if ($stmt1->execute() && $stmt2->execute()) {
+    echo "<h1>Membership Created Successfully 🎉</h1>
+    <fieldset><legend>Welcome, " . htmlspecialchars($first) . "!</legend>
+    <p>You have successfully registered as a <strong>Root Flower Member</strong>.</p>
+    <p>Your username: <strong>" . htmlspecialchars($username) . "</strong></p></fieldset>
+    <div class='subres'><a href='login_form.php' class='aside-btn'>Go to Login</a></div>";
+} else {
+    echo "<h1>Registration Failed ❌</h1><p>Database Error: " . htmlspecialchars($conn->error) . "</p><div class='subres'><a href='membership_form.php' class='aside-btn'>Try Again</a></div>";
+}
+echo "</main>";
+
+$stmt1->close();
+$stmt2->close();
+$conn->close();
+
+include 'footer.inc';
+?>
+
+
+register_process.php:
+<?php
+session_start();
+include 'header.inc';
+
+$host = "localhost"; $port = 3307; $user = "root"; $pass = ""; $dbname = "root_flower";
+$conn = new mysqli($host, $user, $pass, $dbname, $port);
+if ($conn->connect_error) {
+    die("<main class='content'><h1>Database Error ❌</h1><p>".htmlspecialchars($conn->connect_error)."</p></main>");
+}
+
+$first = trim($_POST['first_name'] ?? '');
+$last = trim($_POST['last_name'] ?? '');
+$email = trim($_POST['email'] ?? '');
+$phone = trim($_POST['phone'] ?? '');
+$address = trim($_POST['address'] ?? '');
+$city = trim($_POST['city'] ?? '');
+$state = trim($_POST['state'] ?? '');
+$postcode = trim($_POST['postcode'] ?? '');
+$participants = intval($_POST['participants'] ?? 0);
+$workshop_date = trim($_POST['date'] ?? '');
+$comments = trim($_POST['comments'] ?? '');
+
+$sql = "INSERT INTO register (first_name,last_name,email,phone,address,city,state,postcode,participants,workshop_date,comments)
+        VALUES (?,?,?,?,?,?,?,?,?,?,?)";
+$stmt = $conn->prepare($sql);
+$stmt->bind_param("sssssssisss", $first,$last,$email,$phone,$address,$city,$state,$postcode,$participants,$workshop_date,$comments);
+
+echo "<main class='content'>";
+if($stmt->execute()){
+    echo "<h1>Registration Recorded ✔</h1>
+    <fieldset><legend>Thank you " . htmlspecialchars($first) . "!</legend>
+    <p>Your workshop booking has been successfully submitted.</p></fieldset>
+    <div class='subres'><a class='aside-btn' href='index.php'>Back to Home</a></div>";
+}else{
+    echo "<h1>Submission Failed ❌</h1><p>".htmlspecialchars($conn->error)."</p>";
+}
+echo "</main>";
+
+$stmt->close(); $conn->close();
+include 'footer.inc';
+?>
+
+
+register.php:
+<?php
+// register.php
+// This is the workshop/register form that posts to register_process.php
+?>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="author" content="Azmain Taraqqi">
+    <meta name="keywords" content="HTML5, Root Flower, Workshop, Form">
+    <meta name="description" content="Workshop registration form for Root Flower">
+    <link href="styles/style.css" rel="stylesheet">
+    <title>Workshop Registration - Root Flower</title>
+</head>
+<body>
+    <?php include 'header.php'; ?>
+
+    <main class="content">
+        <h1>Workshop Registration Form</h1>
+
+        <form method="post" action="register_process.php" novalidate>
+            <fieldset>
+                <legend>Personal Details</legend>
+                <div class="twintext">
+                    <div>
+                        <label for="first_name">First Name:</label>
+                        <input type="text"
+                               name="first_name"
+                               id="first_name"
+                               pattern="[a-zA-Z]{1,25}"
+                               maxlength="25"
+                               title="First name should contain only letters (1-25 characters)"
+                               required>
+                    </div>
+                    <div>
+                        <label for="last_name">Last Name:</label>
+                        <input type="text"
+                               name="last_name"
+                               id="last_name"
+                               pattern="[a-zA-Z]{1,25}"
+                               maxlength="25"
+                               title="Last name should contain only letters (1-25 characters)"
+                               required>
+                    </div>
+                </div>
+
+                <div class="singletext">
+                    <label for="email">Email:</label>
+                    <input type="email"
+                           name="email"
+                           id="email"
+                           maxlength="100"
+                           title="Please enter a valid email address"
+                           required>
+                </div>
+
+                <div class="singletext">
+                    <label for="phone">Phone:</label>
+                    <input type="tel"
+                           name="phone"
+                           id="phone"
+                           pattern="[0-9]{1,10}"
+                           maxlength="10"
+                           title="Phone number must be up to 10 digits"
+                           required>
+                </div>
+            </fieldset>
+
+            <fieldset>
+                <legend>Location</legend>
+                <div>
+                    <label for="address">Street Address:</label>
+                    <input type="text"
+                           name="address"
+                           id="address"
+                           maxlength="40"
+                           pattern="[a-zA-Z0-9\s,.\()\/\-]{1,40}"
+                           title="Street address (max 40 characters)"
+                           required>
+                </div>
+
+                <div class="twintext">
+                    <div>
+                        <label for="city">City / Town:</label>
+                        <input type="text"
+                               name="city"
+                               id="city"
+                               pattern="[a-zA-Z\s]{1,20}"
+                               maxlength="20"
+                               title="City/Town (max 20 letters)"
+                               required>
+                    </div>
+                    <div>
+                        <label for="state">State:</label>
+                        <input type="text"
+                               name="state"
+                               id="state"
+                               maxlength="40"
+                               title="State is required"
+                               required>
+                    </div>
+                </div>
+
+                <div class="singletext">
+                    <label for="postcode">Postcode:</label>
+                    <input type="text"
+                           name="postcode"
+                           id="postcode"
+                           pattern="[0-9]{5}"
+                           maxlength="5"
+                           title="Postcode must be 5 digits"
+                           required>
+                </div>
+            </fieldset>
+
+            <fieldset>
+                <legend>Workshop Details</legend>
+                <div class="singletext">
+                    <label for="participants">Number of Participants:</label>
+                    <input type="number"
+                           name="participants"
+                           id="participants"
+                           min="1"
+                           max="99"
+                           pattern="[0-9]{1,2}"
+                           title="Number of participants (1-99)"
+                           required>
+                </div>
+
+                <div class="singletext">
+                    <label for="date">Preferred Date:</label>
+                    <input type="date"
+                           name="date"
+                           id="date"
+                           title="Select your preferred date"
+                           required>
+                </div>
+
+                <div>
+                    <label for="comments">Comments / Special Requirements:</label>
+                    <textarea name="comments"
+                              id="comments"
+                              rows="4"
+                              maxlength="500"
+                              placeholder="Any notes we should know (optional)"></textarea>
+                </div>
+            </fieldset>
+
+            <div class="subres">
+                <input type="submit" value="Submit">
+                <input type="reset" value="Reset">
+            </div>
+        </form>
+    </main>
+
+    <?php include 'footer.php'; ?>
+</body>
+</html>
+
+
+user_dashboard.php:
+<?php
+session_start();
+include('header.inc');
+
+if (!isset($_SESSION['role']) || $_SESSION['role'] !== 'user') {
+    die("<main class='content'><h1>Access Denied ❌</h1></main>");
+}
+
+$username = $_SESSION['username'];
+?>
+
+<main class="content">
+  <h1>Login Successful ✅</h1>
+
+  <form>
+    <fieldset>
+      <legend>Welcome, <?php echo $username; ?>!</legend>
+      <p>You are now logged in as a <strong>Root Flower Member</strong>.</p>
+      <p>Enjoy browsing our floral collections and workshops.</p>
+    </fieldset>
+
+    <div class="subres">
+      <a href="index.php" class="aside-btn">Return to Homepage</a>
+      <a href="workshops.php" class="aside-btn">View Workshops</a>
+      <a href="logout.php" class="aside-btn">Sign Out</a>
+    </div>
+  </form>
+</main>
+
+<?php include('footer.inc'); ?>
+
+
+user_table.sql:
+CREATE TABLE user (
+    user_id INT AUTO_INCREMENT PRIMARY KEY,
+    first_name VARCHAR(25) NOT NULL,
+    last_name VARCHAR(25) NOT NULL,
+    email VARCHAR(100) NOT NULL UNIQUE,
+    login_id VARCHAR(25) NOT NULL UNIQUE,
+    password VARCHAR(255) NOT NULL
+);
+
+
+view_enquiry.php:
+<?php
+session_start(); 
+include('header.inc');
+if(!isset($_SESSION["role"])||$_SESSION["role"]!="admin"){die("<main class='content'><h1>Access Denied ❌</h1></main>");}
+
+$conn=new mysqli("localhost","root","","root_flower",3307);
+$result=$conn->query("SELECT * FROM enquiry");
+?>
+
+<main class="content">
+<h1>📩 User Enquiries</h1>
+<table class="course-table">
+<tr><th>Name</th><th>Email</th><th>Phone</th><th>Message</th></tr>
+
+<?php while($r=$result->fetch_assoc()): ?>
+<tr>
+<td><?= $r['first_name']." ".$r['last_name'] ?></td>
+<td><?= $r['email']?></td>
+<td><?= $r['phone']?></td>
+
+<td><div style="white-space:pre-wrap;word-break:break-word;max-height:80px;overflow-y:auto;">
+<?= $r['comment']?></div></td>
+
+</tr>
+<?php endwhile;?>
+</table>
+
+<a href="admin_dashboard.php" class="aside-btn">⬅ Back to Dashboard</a>
+</main>
+<?php include('footer.inc');?>
+
+
+view_membership.php:
+<?php
+session_start(); 
+include('header.inc');
+if(!isset($_SESSION["role"])||$_SESSION["role"]!="admin"){die("<main class='content'><h1>Access Forbidden 🚫</h1></main>");}
+
+$conn=new mysqli("localhost","root","","root_flower",3307);
+$r=$conn->query("SELECT * FROM user");
+?>
+
+<main class="content">
+<h1>👥 Registered Members</h1>
+<table class="course-table">
+<tr><th>Username</th><th>Email</th><th>Created</th></tr>
+
+<?php while($row=$r->fetch_assoc()): ?>
+<tr>
+<td><?= $row['username']?></td>
+<td><?= $row['email']?></td>
+<td><?= $row['created_at']?></td>
+</tr>
+<?php endwhile;?>
+</table>
+
+<a href="admin_dashboard.php" class="aside-btn">⬅ Back to Dashboard</a>
+</main>
+<?php include('footer.inc');?>
+
+
+view_register.php:
+<?php
+session_start(); 
+include('header.inc');
+if(!isset($_SESSION["role"])||$_SESSION["role"]!="admin"){die("<main class='content'><h1>Access Denied ❌</h1></main>");}
+
+$conn=new mysqli("localhost","root","","root_flower",3307);
+$result=$conn->query("SELECT * FROM register");
+?>
+
+<main class="content">
+<h1>📄 Workshop Registrations</h1>
+<table class="course-table">
+
+<tr><th>Name</th><th>Email</th><th>Phone</th><th>Address</th><th>Workshop</th><th>Comments</th></tr>
+
+<?php while($r=$result->fetch_assoc()): ?>
+<tr>
+<td><?= $r['first_name']." ".$r['last_name'] ?></td>
+<td><?= $r['email']?></td>
+<td><?= $r['phone']?></td>
+
+<td><div style="white-space:pre-wrap;word-wrap:break-word;max-width:200px;">
+<?= $r['address'].", ".$r['city'].", ".$r['state']." ".$r['postcode'] ?></div></td>
+
+<td style="white-space:nowrap;"><?= $r['workshop_date']?></td>
+
+<td><div style="white-space:pre-wrap;word-break:break-word;max-height:70px;overflow-y:auto;">
+<?= $r['comments']?></div></td>
+
+</tr>
+<?php endwhile; ?>
+</table>
+
+<a href="admin_dashboard.php" class="aside-btn" style="margin-top:20px;">⬅ Back to Dashboard</a>
+</main>
+<?php include('footer.inc');?>
+
+
+workshop_form.php:
+<?php session_start(); ?>
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="author" content="Azmain Taraqqi">
+  <meta name="keywords" content="HTML5, Root Flower, Workshops, Form">
+  <meta name="description" content="Workshop registration form for Root Flower">
+    <link href="styles/style.css" rel="stylesheet">
+    <title>Workshop Registration - Root Flower</title>
+</head>
+<body>
+    <?php include('header.inc'); ?>
+
+    <main class="content">
+
+        <h1>Workshop Registration Form</h1>
+        <form method="post" action="register_process.php">
+        <form method="post" action="register_process.php">
+            <fieldset>
+                <legend>Personal Details</legend>
+                <div class="twintext">
+                    <div>
+                        <label for="first_name">First Name:</label>
+                        <input type="text" name="first_name" id="first_name" 
+                         value="<?= $_SESSION['first_name'] ?? '' ?>" pattern="[a-zA-Z]{0-25}" required="required">
+                    </div>
+                    <div>
+                        <label for="last_name">Last Name:</label>
+                        <input type="text" name="last_name" id="last_name" 
+                         value="<?= $_SESSION['last_name'] ?? '' ?>" pattern="[a-zA-Z]{0-25}" required="required">
+                    </div>
+                </div>
+                <div class="twintext">
+                    <div>
+                        <label for="email">Email:</label>
+                        <input type="email" name="email" id="email"
+                         value="<?= $_SESSION['email'] ?? '' ?>" size="20" required="required">
+                    </div>
+                    <div>
+                        <label for="phone">Phone Number:</label>
+                        <input type="tel" name="phone" id="phone" pattern="[0-9]{1,10}" maxlength="10" placeholder="+60-123456789" title="Phone number should be 1-10 digits" required>
+                    </div>
+                </div>
+                
+            </fieldset>
+            <fieldset>
+                <legend>Address</legend>
+                <div class="singletext">
+                    <label for="address">Street Address:</label>
+                    <input type="text" name="address" id="address" pattern="[a-zA-Z0-9\s,.()\/\-]{1,40}" maxlength="40" size="40" title="Street address (1-40 characters, letters, numbers, spaces, brackets allowed)" required>
+                </div>
+                <div class="singletext">
+                    <label for="city">City/Town:</label>
+                    <input type="text" name="city" id="city" pattern="[a-zA-Z\s]{1,20}" maxlength="20" size="20" title="City/Town name (1-20 characters, letters and spaces)" required>
+                </div>
+                <div class="twintext">
+                    <div>
+                        <label for="state">State:</label>
+                        <select name="state" id="state" title="Please select a state" required>
+                            <option value="" selected>None</option>
+                            <option value="johor">Johor</option>
+                            <option value="kedah">Kedah</option>
+                            <option value="kelantan">Kelantan</option>
+                            <option value="malacca">Malacca</option>
+                            <option value="negeri_sembilan">Negeri Sembilan</option>
+                            <option value="pahang">Pahang</option>
+                            <option value="penang">Penang</option>
+                            <option value="perak">Perak</option>
+                            <option value="perlis">Perlis</option>
+                            <option value="sabah">Sabah</option>
+                            <option value="sarawak">Sarawak</option>
+                            <option value="selangor">Selangor</option>
+                            <option value="terengganu">Terengganu</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label for="postcode">Postcode:</label>
+                        <input type="text" name="postcode" id="postcode" pattern="[0-9]{5}" minlength="5" maxlength="5" size="5" title="Postcode must be exactly 5 digits" required>
+                    </div>
+                </div>
+                
+            </fieldset>
+            <fieldset>
+                <legend>Workshop Details</legend>
+                <div class="singletext">
+                    <label for="participants">Number of Participants:</label>
+                    <input type="number" name="participants" id="participants" min="1" max="99" title="Number of participants (1-99)" required>
+                </div>
+                <div class="singletext">
+                    <label for="date">Preferred Date:</label>
+                    <input type="date" name="date" id="date" title="Please select a preferred date" required>
+                </div>
+                <div class="textareadiv">
+                    <textarea name="comments" id="comments" placeholder="Additional comments (if any)"></textarea>
+                </div>
+            </fieldset>
+            <div class="subres">
+                <input type="submit" value="Submit">
+                <input type="reset" value="Reset">
+            </div>    
+        </form>
+    </main>
+
+    <?php include('footer.inc'); ?>
+</body>
+</html>
+
+
+these should be enough to figure out where the issue is for any of the tasks. provide fixes for them.

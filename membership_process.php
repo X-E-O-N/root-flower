@@ -41,12 +41,14 @@ $chk->close();
 $hashed = password_hash($password, PASSWORD_DEFAULT);
 
 // Insert into membership
-$sql1 = "INSERT INTO membership (first_name, last_name, email, username, password) VALUES (?, ?, ?, ?, ?)";
+$sql1 = "INSERT INTO membership (first_name, last_name, email, username, password)
+         VALUES (?, ?, ?, ?, ?)";
 $stmt1 = $conn->prepare($sql1);
 $stmt1->bind_param("sssss", $first, $last, $email, $username, $hashed);
 
-// Insert into user (for login)
-$sql2 = "INSERT INTO user (first_name, last_name, username, email, password) VALUES (?, ?, ?, ?, ?)";
+// Insert into user
+$sql2 = "INSERT INTO user (first_name, last_name, username, email, password)
+         VALUES (?, ?, ?, ?, ?)";
 $stmt2 = $conn->prepare($sql2);
 $stmt2->bind_param("sssss", $first, $last, $username, $email, $hashed);
 
