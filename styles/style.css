@@ -85,7 +85,7 @@ nav {
 }
 
 .nav-menu li,
-#login {
+#login a {
   margin: 0 20px;
   padding: 8px;
   border-radius: 5px;
@@ -93,7 +93,7 @@ nav {
 }
 
 .nav-menu li:hover,
-#login:hover {
+#login a:hover {
   background-color: #770000;
 }
 
