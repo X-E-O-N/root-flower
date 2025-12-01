@@ -4,7 +4,7 @@ include 'header.inc';
 
 if ($_SESSION['role'] !== 'admin') die("Access Denied");
 
-$conn = new mysqli("localhost", "root", "", "root_flower_db", 8080);
+$conn = new mysqli("localhost", "root", "", "root_flower_db", 3306);
 
 $id = intval($_GET['id']);
 $stmt = $conn->prepare("SELECT first_name, last_name, username, email FROM user WHERE id=?");
