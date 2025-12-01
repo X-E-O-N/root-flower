@@ -6,7 +6,7 @@ if (!isset($_SESSION['role']) || $_SESSION['role'] !== 'admin') {
     die("<main class='content'><h1>Access Denied</h1></main>");
 }
 
-$conn = new mysqli("localhost", "root", "", "root_flower", 3307);
+$conn = new mysqli("localhost", "root", "", "root_flower_db", 3307);
 $result = $conn->query("SELECT * FROM user ORDER BY id DESC");
 ?>
 

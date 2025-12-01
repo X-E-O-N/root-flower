@@ -3,7 +3,7 @@ session_start();
 include 'header.inc';
 if ($_SESSION['role'] !== 'admin') die("Access Denied");
 
-$conn = new mysqli("localhost","root","","root_flower",3307);
+$conn = new mysqli("localhost","root","","root_flower_db",3307);
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $first = trim($_POST['first_name']);

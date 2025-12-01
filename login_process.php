@@ -3,7 +3,7 @@ session_start();
 include 'header.inc';
 
 // DB
-$host = "localhost"; $port = 3307; $user = "root"; $pass = ""; $dbname = "root_flower";
+$host = "localhost"; $port = 3307; $user = "root"; $pass = ""; $dbname = "root_flower_db";
 $conn = new mysqli($host, $user, $pass, $dbname, $port);
 if ($conn->connect_error) {
     die("<main class='content'><h2>Database Connection Failed ❌</h2><p>" . htmlspecialchars($conn->connect_error) . "</p></main>");
