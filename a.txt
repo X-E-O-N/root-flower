@@ -2821,3 +2821,528 @@ ong></p>
 modify enhancements2.php so that it follows enhancement1.php in terms of content and structure.
 
 next, the php files that now have css selectors aren't linked to style.css due to missing <head> sections, so the css rules aren't applied. provide fixes for that issue.
+
+
+
+
+from the enhancements, add dynamic promotion and product search features. these are the relevant pages:
+
+product1.php:
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="author" content="Wei Hang Lee, Azmain Taraqqi">
+    <meta name="keywords" content="HTML5, Root Flower, Products, Bouquets">
+    <meta name="description" content="Product page for Root Flower">
+    <link href="styles/style.css" rel="stylesheet">
+    <title>Hand Bouquets - Root Flower</title>
+</head>
+<body>
+    <?php include('header.inc'); ?>
+
+    <main class="product-content">
+        <h1>Hand Bouquets</h1>
+        <section>
+            <h2>For everyday displays of love.</h2>
+            <p>
+                Hand bouquets are timeless gifts that convey emotions and appreciation. 
+                At <strong>Root Flower</strong>, our florists carefully curate each bouquet 
+                using the freshest seasonal blooms. Perfect for birthdays, anniversaries, 
+                or spontaneous gestures of love.
+            </p>
+
+            <div class="product-gallery" id="product-gallery">
+                <figure>
+                    <img src="images/Bouquets/handbouquet1.jpg" alt="Classic Red Rose Bouquet">
+                    <figcaption>Classic Red Roses Bouquet — a romantic timeless choice.</figcaption>
+                </figure>
+                <figure>
+                    <img src="images/Bouquets/handbouquet2.jpg" alt="Snow White Bouquet">
+                    <figcaption>Snow White Bouquet — soft tones of elegance and charm.</figcaption>
+                </figure>
+                <figure>
+                    <img src="images/Bouquets/handbouquet3.jpg" alt="Sunflower Mix Bouquet">
+                    <figcaption>Sunflower Mix Bouquet — bright, cheerful, and full of life.</figcaption>
+                </figure>
+                <figure>
+                    <img src="images/Bouquets/handbouquet4.jpg" alt="Gerbera Mix">
+                    <figcaption>Gerbera Mix — a variety of vibrant and bright colors of red, pink, orange, yellow and white.</figcaption>
+                </figure>
+            </div>
+        </section>
+
+        <div class="product-main">
+            <aside class="product-aside">
+                <h2>Flower Care Tips</h3>
+                <p>
+                    Trim stems diagonally before placing in water. Change water every 2 days to keep flowers fresh. Avoid direct sunlight or heat exposure.
+                </p>
+                <p>
+                    💐 Join our <a href="workshop_form.php">bouquet-making workshop</a> to learn how to 
+                    craft your own floral masterpiece!
+                </p>
+            </aside>
+            <div class="product-align">
+                <!-- <section class="product-section">
+                    <h2>Popular Hand Bouquet Styles</h2>
+                    <div class="product-section-content">
+                        <ol>
+                            <li>Classic Red Roses Bouquet</li>
+                            <li>Snow White Bouquet</li>
+                            <li>Sunflower Mix</li>
+                            <li>Gerbera Mix</li>
+                        </ol>
+                    </div>
+                </section> -->
+                <section class="product-section">
+                    <h2>Bouquet Types</h2>
+                    <div class="product-section-content">
+                        <dl>
+                            <dt><strong>Classic Red Rose</strong></dt>
+                            <dd>Symbolizes deep love and passion; perfect for romantic occasions.</dd>
+
+                            <dt><strong>Snow White Bouquet</strong></dt>
+                            <dd>Soft-toned yellow roses, carnations, blue flaxes and daisies wrapped elegantly in matte paper.</dd>
+
+                            <dt><strong>Sunflower Mix</strong></dt>
+                            <dd>Brings warmth and happiness, perfect for celebrations.</dd>
+
+                            <dt><strong>Gerbera Mix</strong></dt>
+                            <dd>Earthy and natural style suitable for casual gifting.</dd>
+                        </dl>
+                    </div>
+                </section>
+                <section class="product-section">
+                    <h2>How to order:</h2>
+                    <div class="product-section-content">
+                        <ol>
+                            <li>Browse through our collections of flower stand designs</li>
+                            <li>Select the preferred size, arrangement and color</li>
+                            <li>Enter in recipient's details and message card content</li>
+                            <li>Complete the payment and select the delivery date</li>
+                            <li>A confirmation message will be issued</li>
+                        </ol>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </main>
+
+    <?php include('footer.inc'); ?>
+</body>
+</html>
+
+product2.php:
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="styles/style.css" rel="stylesheet">
+    <meta name="author" content="Wei Hang Lee, Azmain Taraqqi">
+    <meta name="keywords" content="HTML5, Root Flower, Products, Bouquets, CNY">
+    <meta name="description" content="Product page for Root Flower">
+    <title>Chinese New Year Decorations - Root Flower</title>
+</head>
+<body>
+    <?php include('header.inc'); ?>
+
+    <main class="product-content">
+        <h1>Chinese New Year Floral Decorations</h1>
+        <section>
+            <h2>Begin the year on a floral note.</h2>
+            <p>
+                Celebrate prosperity and renewal this festive season with our elegant 
+                <strong>Chinese New Year floral decorations</strong>. 
+                Each arrangement by Root Flower brings luck, beauty, and blessings 
+                to your home or business. Featuring symbolic plants such as orchids, 
+                pussy willows, and mandarin trees — all arranged to enhance good fortune.
+            </p>
+
+            <div class="product-gallery">
+                <figure>
+                    <img src="images/CNY/cny1.jpg" alt="Fortune Fruit Flower Decoration">
+                    <figcaption>Fortune Fruit Flower Decoration — symbolizing prosperity and the beauty of life.</figcaption>
+                </figure>
+                <figure>
+                    <img src="images/CNY/cny2.jpg" alt="Blossoms of Fortune Display">
+                    <figcaption>Blossoms of Fortune Display — symbolizes yearning for happiness, riches and honor.</figcaption>
+                </figure>
+                <figure>
+                    <img src="images/CNY/cny3.jpg" alt="Lucky Bamboo">
+                    <figcaption>Lucky Bamboo — attracts prosperity and positive energy.</figcaption>
+                </figure>
+                <figure>
+                    <img src="images/CNY/cny4.jpg" alt="Festive Lilly Pads Arrangement">
+                    <figcaption>Festive Lilly Pads Arrangement - a festive favourite symbolizing growth and vitality.</figcaption>
+                </figure>
+                <!-- <figure>
+                    <img src="images/CNY/cny5.jpg" alt="Blossoms of Gift">
+                    <figcaption>Blossoms of Gift - </figcaption>
+                </figure> -->
+            </div>
+        </section>
+        <div class="product-main">
+            <aside class="product-aside">
+                <h2>Festive Decoration Tips</h3>
+                <p>
+                    Place your plants near entrances to invite prosperity. Water sparingly and keep flowers out of direct sunlight. Combine red and gold ribbons for extra festive charm.
+                </p>
+                <p>
+                    🏵️ Sign up for our <a href="workshop_form.php">CNY Flower Arrangement Workshop</a> 
+                    and learn how to design your own festive floral centerpiece!
+                </p>
+            </aside>
+            <div class="product-align">
+                <!-- <section class="product-section">
+                    <h2>Popular Chinese New Year Floral Arrangements</h2>
+                    <div class="product-section-content">
+                        <ol>
+                            <li>Fortune Fruit Flower Decoration</li>
+                            <li>Blossoms of Fortune Display</li>
+                            <li>Lucky Bamboo</li>
+                            <li>Festive Lilly Pads Arrangement</li>
+                            <li>Blossoms of Gift</li>
+                        </ol>
+                    </div>
+                </section> -->
+                <section class="product-section">
+                    <h2>CNY Bouquet Types</h2>
+                    <div class="product-section-content">
+                        <dl>
+                            <dt>Fortune Fruit Flower Decoration</dt>
+                            <dd>Brings beauty to interior settings of homes and offices</dd>
+
+                            <dt><strong>Blossoms of Fortune Display</strong></dt>
+                            <dd>Elegant and refined — symbolizes wealth and success in business.</dd>
+
+                            <dt><strong>Lucky Bamboo</strong></dt>
+                            <dd>Known to bring peace and prosperity when placed in homes and offices.</dd>
+
+                            <dt><strong>Festive Lilly Pads Arrangement</strong></dt>
+                            <dd>A traditional must-have for attracting happiness and serenity.</dd>
+
+                            <dt><strong>Blossoms of Gift</strong></dt>
+                            <dd>A perfect gift for friends and families during spring season.</dd>
+                        </dl>
+                    </div>
+                </section>
+                <section class="product-section">
+                    <h2>How to order:</h2>
+                    <div class="product-section-content">
+                        <ol>
+                            <li>Browse through our collections of flower stand designs</li>
+                            <li>Select the preferred size, arrangement and color</li>
+                            <li>Enter in recipient's details and message card content</li>
+                            <li>Complete the payment and select the delivery date</li>
+                            <li>A confirmation message will be issued</li>
+                        </ol>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </main>
+
+    <?php include('footer.inc'); ?>
+</body>
+</html>
+
+product3.php:
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="author" content="Chan Chun Hui, Azmain Taraqqi">
+    <meta name="keywords" content="HTML5, Root Flower, Products, Bouquets, Openings">
+    <meta name="description" content="Product page for Root Flower">
+    <link href="styles/style.css" rel="stylesheet">
+    <title>Grand Openings - Root Flower</title>
+</head>
+<body>
+    <?php include('header.inc'); ?>
+
+    <main class="product-content">
+      <h1>Grand Opening Flowers</h1>  
+      <section>
+        <h2>Celebrate new beginnings.</h2>
+        <p>Grand opening flowers symbolize good wishes, prosperity and success for new businesses.</p>
+
+        <div class="product-gallery">
+            <figure>
+                <img src="images/GrandOpening/pd3pic1.png" alt="Grand Opening flower stand 1" title="Energy, excitement, new beginnings">
+                <figcaption>Energy, excitement, new beginnings</figcaption>
+            </figure>
+            <figure>
+                <img src="images/GrandOpening/pd3pic2.png" alt="Grand Opening flower stand 2" title="Luxury, ambition, success">
+                <figcaption>Luxury, ambition, success</figcaption>
+            </figure>
+            <figure>
+                <img src="images/GrandOpening/pd3pic3.png" alt="Grand Opening flower stand 3" title="Passion, strength, celebration">
+                <figcaption>Passion, strength, celebration</figcaption>
+            </figure>
+            <figure>
+                <img src="images/GrandOpening/pd3pic4.png" alt="Grand Opening flower stand 4" title="Prosperity, achievement, elegance">
+                <figcaption>Prosperity, achievement, elegance</figcaption>
+            </figure>
+        </div>
+        <p>Image references: <a href="https://www.instagram.com/root.flowersss?igsh=Ym1yZ2Vqejd0Mzc3" target="_blank">Root Flower Instagram</a></p>
+      </section>
+
+      <div class="product-main">
+        <aside class="product-aside">
+            <h2>Additional flower etiquette tips</h2>
+            <p>It is customary to include a congratualatory message card for grand openings. Avoid white flowers, as it is more common for sympathy arrangements.</p>
+        </aside>
+        <div class="product-align">
+            <section class="product-section">
+                <h2>Flower Types and Meanings</h2>
+                <div class="product-section-content">
+                    <dl>
+                        <dt>Sunflowers</dt>
+                        <dd>Symbolizes happiness, strength, and positivity</dd>
+                        <dt>Lily</dt>
+                        <dd>Symbolizes properity and good fortune</dd>
+                        <dt>Orchid</dt>
+                        <dd>Represents elegance, beauty and success</dd>
+                    </dl>
+                </div>
+            </section>
+
+            <section class="product-section">
+                <h2>How to order:</h2>
+                <div class="product-section-content">
+                    <ol>
+                        <li>Browse through our collections of flower stand designs</li>
+                        <li>Select the preferred size, arrangement and color</li>
+                        <li>Enter in recipient's details and message card content</li>
+                        <li>Complete the payment and select the delivery date</li>
+                        <li>A confirmation message will be issued</li>
+                    </ol>
+                </div>
+            </section>
+        </div>
+      </div>
+    </main>
+
+    <?php include('footer.inc'); ?>
+</body>
+</html>
+
+product4.php:
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="author" content="Chan Chun Hui, Azmain Taraqqi">
+    <meta name="keywords" content="HTML5, Root Flower, Products, Bouquets, Graduation">
+    <meta name="description" content="Product page for Root Flower">
+    <link href="styles/style.css" rel="stylesheet">
+    <title>Graduation - Root Flower</title>
+</head>
+<body>
+    <?php include('header.inc'); ?>
+
+    <main class="product-content">
+      <h1>Graduation Flowers</h1>  
+      <section>
+        <h2>Bloom into your next chapter.</h2>
+        <p>Graduation flowers symbolizes a milestone celebrating perseverance and success.</p>
+        <div class="product-gallery">
+            <figure>
+                <img src="images/Graduation/pd4pic1.png" alt="Graduation flower " title="Pink Teddy">
+                <figcaption>Pink Teddy Bear</figcaption>
+            </figure>
+            <figure>
+                <img src="images/Graduation/Pd4pic2.png" alt="Graduation flower " title="Blue Theme Teddy Bear">
+                <figcaption>Blue Themed Teddy Bear</figcaption>
+            </figure>
+            <figure>
+                <img src="images/Graduation/Pd4pic3.png" alt="Graduation flower " title="Sunflower Trio">
+                <figcaption>Sunflower Trio</figcaption>
+            </figure>
+            <figure>
+                <img src="images/Graduation/Pd4pic4.png" alt="Graduation flower " title="Sunflower Mix">
+                <figcaption>Sunflower Mix</figcaption>
+            </figure>
+        </div>
+        <p>Image references: <a href="https://www.instagram.com/root.flowersss?igsh=Ym1yZ2Vqejd0Mzc3" target="_blank">Root Flower Instagram</a></p>
+      </section>
+
+      <div class="product-main">
+        <aside class="product-aside">
+            <h2>Message ideas to pair with flowers</h2>
+            <p>"Congratulations on your blooming success, like these flowers", "May your future continue to blossom", and "May your future be as bright and full of suprises as these flowers" </p>
+        </aside>
+        <div class="product-align">
+            <section class="product-section">
+                <h2>Flower Color Symbolism</h2>
+                <dl>
+                    <dt>Red.</dt>
+                    <dd>Symbolizes Passion</dd>
+                    <dt>Pink</dt>
+                    <dd>Symbolizes Grace</dd>
+                    <dt>White</dt>
+                    <dd>Symbolizes Purity</dd>
+                    <dt>Yellow</dt>
+                    <dd>Symbolizes Friendship</dd>
+                    <dt>Purple</dt>
+                    <dd>Symbolizes Royalty</dd>
+                </dl>
+            </section>
+
+            <section class="product-section">
+                <h2>How to order:</h2>
+                <ol>
+                    <li>Browse through our collections of flower stand designs</li>
+                    <li>Select the preferred size, arrangement and color</li>
+                    <li>Enter in recipient's details and message card content</li>
+                    <li>Complete the payment and select the delivery date</li>
+                    <li>A confirmation message will be issued</li>
+                </ol>
+            </section>
+        </div>
+      </div>
+    </main>
+
+    <?php include('footer.inc'); ?>
+</body>
+</html>
+
+promo.php:
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="author" content="Dhirrenraj Vijayaraj, Azmain Taraqqi">
+  <meta name="keywords" content="HTML5, Root Flower, Promotion">
+  <meta name="description" content="Promotion materials for Root Flower">
+  <link href="styles/style.css" rel="stylesheet" />
+  <title>Workshops - Root Flower</title>
+</head>
+
+<body>
+  <?php include('header.inc'); ?>
+
+  <main class="content">
+    <h1> Promotions & Special Offers</h1>
+    <section class="promo-section">
+      <h2>Promo Glossary</h2>
+      <figure class="promofig">
+        <img src="images/Promo/promotions1.png" alt="520 Giveaway - Cry Baby & Hacipupu Bouquet" class="promo-img">
+        <figcaption>
+          <h2>520 Giveaway – Cry Baby & Hacipupu Bouquet</h2>
+          <p>🎁 Stand a chance to win adorable <strong>Cry Baby</strong> and <strong>Hacipupu</strong> bouquet sets from Root Flower & Gift! Two lucky winners will receive original figurines from Pop Mart arranged in a customised flower bouquet.</p>
+
+          <h3>How to Join:</h3>
+          <ol>
+            <li><strong>LIKE & FOLLOW</strong> — Follow our page “The Root Flower & Gift”.</li>
+            <li><strong>COMMENT</strong> — Tag 3 friends (each comment = 1 entry, don’t tag the same person repeatedly).</li>
+            <li><strong>SHARE</strong> — Share this post on your Story (make sure your account is public).</li>
+            <li><strong>VERIFY</strong> — We’ll reply to your comment within 24 hours after verifying your Story share.</li>
+          </ol>
+        </figcaption>
+      </figure>
+
+      <figure class="promofig">
+        <img src="images/Promo/promotions2.png" alt="Christmas Floral Workshop Giveaway" class="promo-img">
+        <figcaption>
+          <h2>Christmas Floral Workshop Giveaway</h2>
+          <p>🌲 Get into the festive spirit with our <strong>Christmas Floral Workshop</strong>! Three lucky winners will enjoy a hands-on floral experience on <strong>23 Dec 2023 (3PM–5PM)</strong>.</p>
+
+          <dl>
+            <dt><strong>Giveaway Ends:</strong></dt>
+            <dd>13 December 2023</dd>
+
+            <dt><strong>Winner Announcement:</strong></dt>
+            <dd>14 December 2023</dd>
+          </dl>
+
+          <h3>How to Participate:</h3>
+          <ol>
+            <li>Follow our page “The Root Flower & Gift”.</li>
+            <li>Like and share this post to your Story.</li>
+            <li>Tag 3 friends in the comments.</li>
+          </ol>
+        </figcaption>
+      </figure>
+
+      <figure class="promofig">
+        <img src="images/Promo/promotions3.png" alt="Mother’s Day Early Bird Promotion" class="promo-img">
+        <figcaption>
+          <h2>Mother’s Day Early Bird Promotion</h2>
+          <p>🌸 Say “I Love You, Mum” with a heartfelt bouquet and enjoy <strong>10% OFF</strong> when you order before <strong>30 April 2023</strong>.</p>
+
+          <dl>
+            <dt><strong>Promotion:</strong></dt>
+            <dd>10% Early Bird Discount</dd>
+
+            <dt><strong>Valid Until:</strong></dt>
+            <dd>30 April 2023</dd>
+          </dl>
+
+          <h3>How to Redeem:</h3>
+          <ol>
+            <li>Pre-order your bouquet before <strong>30 April 2023</strong>.</li>
+            <li>Contact us via DM or purchase directly through our shop.</li>
+            <li>Pick up or schedule delivery before <strong>14 May 2023</strong>.</li>
+          </ol>
+        </figcaption>
+      </figure>
+
+      
+      <figure class="promofig">
+        <img src="images/Promo/promotions4.png" alt="Valentine’s Day Promotion" class="promo-img">
+        <figcaption>
+          <h2>Valentine’s Day Sale</h2>
+          <p>💖 Celebrate this Valentine’s Day with Root Flower’s romantic bouquets. Enjoy <strong>14% OFF</strong> early-bird orders before <strong>30 Jan 2023</strong>, or <strong>7% OFF</strong> before <strong>5 Feb 2023</strong>.</p>
+
+          <dl>
+            <dt><strong>Early Bird:</strong></dt>
+            <dd>14% discount for orders placed before 30 January 2023.</dd>
+
+            <dt><strong>Standard Offer:</strong></dt>
+            <dd>7% discount for orders made before 5 February 2023.</dd>
+          </dl>
+
+          <h3>How to Participate:</h3>
+          <ol>
+            <li>Place your order before <strong>30 Jan 2023</strong> to receive <strong>14%</strong> off or  before <strong>5 Feb 2023</strong> for <strong>7%</strong> off!</li>
+            <li>Order online or contact us directly to pre-order your bouquet.</li>
+            <li>Collect or have it delivered before Valentine’s Day!</li>
+          </ol>
+        </figcaption>
+      </figure>
+
+    </section>
+
+    <!-- How to Redeem -->
+    <section class="promo-section" id="how-to-redeem">
+      <h2>How to Redeem</h2>
+      <ol>
+        <li>Pick your favorite promotion from the list above.</li>
+        <li>Contact us via <strong>Instagram DM</strong> or fill in our <a href="enquiry_form.php">Enquiry Form</a>.</li>
+        <li>Mention the promo name (e.g. “Valentine's Specials”).</li>
+        <li>Confirm your details and enjoy your discounted blooms!</li>
+      </ol>
+    </section>
+
+    <aside class="promo-aside promo-section">
+      <h2>Join & Save 🌸</h2>
+      <p>Become a Root Flower member to enjoy exclusive discounts, seasonal promotions and more!</p>
+      <a href="membership_form.php" class="aside-btn">Join Membership</a>
+      <a href="workshops.php" class="aside-btn">View Workshops</a>
+    </aside>
+  </main>
+
+  <?php include('footer.inc'); ?>
+</body>
+</html>
+
+
+from Assignment 2.pdf, generate the content for both of the individual tasks (ui testing report and individual project report). 
+for the individual project report, follow all the guidelines provided and indicate where screenshots should be provided.

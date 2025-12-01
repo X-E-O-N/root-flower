@@ -1,129 +1,132 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="author" content="Dhirrenraj Vijayaraj, Azmain Taraqqi">
-  <meta name="keywords" content="HTML5, Root Flower, Promotion">
-  <meta name="description" content="Promotion materials for Root Flower">
-  <link href="styles/style.css" rel="stylesheet" />
-  <title>Workshops - Root Flower</title>
-</head>
+<?php
+session_start();
+include('header.inc');
 
-<body>
-  <?php include('header.inc'); ?>
+// 1. Database Connection
+$conn = new mysqli("localhost", "root", "", "root_flower_db", 3306);
+if ($conn->connect_error) {
+    die("Connection failed: " . $conn->connect_error);
+}
 
-  <main class="content">
-    <h1> Promotions & Special Offers</h1>
+// 2. Handle Actions (Admin Only)
+$isAdmin = isset($_SESSION['role']) && $_SESSION['role'] === 'admin';
+$msg = "";
+
+if ($isAdmin) {
+    // Handle ADD Promotion
+    if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['add_promo'])) {
+        $title = $conn->real_escape_string($_POST['title']);
+        $img = $conn->real_escape_string($_POST['image_path']);
+        // Allowing HTML tags for description/details so Admin can format text
+        $desc = $conn->real_escape_string($_POST['description']);
+        $details = $conn->real_escape_string($_POST['details_html']);
+
+        $sql = "INSERT INTO promotions (title, image_path, description, details_html) VALUES ('$title', '$img', '$desc', '$details')";
+        
+        if ($conn->query($sql)) {
+            $msg = "<p style='color:green; font-weight:bold;'>✅ Promotion added successfully!</p>";
+        } else {
+            $msg = "<p style='color:red;'>❌ Error adding promotion: " . $conn->error . "</p>";
+        }
+    }
+
+    // Handle DELETE Promotion
+    if (isset($_GET['delete_id'])) {
+        $id = intval($_GET['delete_id']);
+        $sql = "DELETE FROM promotions WHERE id = $id";
+        if ($conn->query($sql)) {
+            $msg = "<p style='color:green; font-weight:bold;'>🗑️ Promotion deleted.</p>";
+        } else {
+            $msg = "<p style='color:red;'>❌ Error deleting: " . $conn->error . "</p>";
+        }
+    }
+}
+?>
+
+<main class="content">
+    <h1>Promotions & Special Offers</h1>
+    
+    <?php if ($isAdmin): ?>
+    <section class="course-table-section" style="background-color: #ffe6e6; border-color: #cc0000;">
+        <h2>🛠️ Admin: Manage Promotions</h2>
+        <?= $msg ?>
+        <form method="post" action="promo.php">
+            <div class="singletext">
+                <label>Promotion Title:</label>
+                <input type="text" name="title" required placeholder="e.g. Valentine's Sale">
+            </div>
+            <div class="singletext">
+                <label>Image Path:</label>
+                <input type="text" name="image_path" required placeholder="images/Promo/filename.jpg">
+            </div>
+            <div class="textareadiv">
+                <label>Description:</label>
+                <textarea name="description" rows="3" required placeholder="<p>Enter main description...</p>"></textarea>
+            </div>
+            <div class="textareadiv">
+                <label>Details / How to Redeem:</label>
+                <textarea name="details_html" rows="5" required placeholder="<h3>How to join:</h3><ul><li>Step 1...</li></ul>"></textarea>
+            </div>
+            <div class="subres" style="margin-top:10px;">
+                <input type="submit" name="add_promo" value="Add Promotion" class="aside-btn">
+            </div>
+        </form>
+    </section>
+    <?php endif; ?>
+
     <section class="promo-section">
-      <h2>Promo Glossary</h2>
-      <figure class="promofig">
-        <img src="images/Promo/promotions1.png" alt="520 Giveaway - Cry Baby & Hacipupu Bouquet" class="promo-img">
-        <figcaption>
-          <h2>520 Giveaway – Cry Baby & Hacipupu Bouquet</h2>
-          <p>🎁 Stand a chance to win adorable <strong>Cry Baby</strong> and <strong>Hacipupu</strong> bouquet sets from Root Flower & Gift! Two lucky winners will receive original figurines from Pop Mart arranged in a customised flower bouquet.</p>
+        <h2>Latest Deals</h2>
 
-          <h3>How to Join:</h3>
-          <ol>
-            <li><strong>LIKE & FOLLOW</strong> — Follow our page “The Root Flower & Gift”.</li>
-            <li><strong>COMMENT</strong> — Tag 3 friends (each comment = 1 entry, don’t tag the same person repeatedly).</li>
-            <li><strong>SHARE</strong> — Share this post on your Story (make sure your account is public).</li>
-            <li><strong>VERIFY</strong> — We’ll reply to your comment within 24 hours after verifying your Story share.</li>
-          </ol>
-        </figcaption>
-      </figure>
+        <?php
+        $result = $conn->query("SELECT * FROM promotions ORDER BY id DESC");
+        
+        if ($result->num_rows > 0):
+            while ($row = $result->fetch_assoc()):
+        ?>
+            <figure class="promofig">
+                <img src="<?= htmlspecialchars($row['image_path']) ?>" alt="<?= htmlspecialchars($row['title']) ?>" class="promo-img">
+                <figcaption>
+                    <div style="display:flex; justify-content:space-between; align-items:center;">
+                        <h2><?= htmlspecialchars($row['title']) ?></h2>
+                        <?php if ($isAdmin): ?>
+                            <a href="promo.php?delete_id=<?= $row['id'] ?>" 
+                               onclick="return confirm('Delete this promotion?');"
+                               style="color:red; font-size:0.8em; text-decoration:underline;">[Delete]</a>
+                        <?php endif; ?>
+                    </div>
 
-      <figure class="promofig">
-        <img src="images/Promo/promotions2.png" alt="Christmas Floral Workshop Giveaway" class="promo-img">
-        <figcaption>
-          <h2>Christmas Floral Workshop Giveaway</h2>
-          <p>🌲 Get into the festive spirit with our <strong>Christmas Floral Workshop</strong>! Three lucky winners will enjoy a hands-on floral experience on <strong>23 Dec 2023 (3PM–5PM)</strong>.</p>
+                    <div><?= $row['description'] ?></div>
 
-          <dl>
-            <dt><strong>Giveaway Ends:</strong></dt>
-            <dd>13 December 2023</dd>
-
-            <dt><strong>Winner Announcement:</strong></dt>
-            <dd>14 December 2023</dd>
-          </dl>
-
-          <h3>How to Participate:</h3>
-          <ol>
-            <li>Follow our page “The Root Flower & Gift”.</li>
-            <li>Like and share this post to your Story.</li>
-            <li>Tag 3 friends in the comments.</li>
-          </ol>
-        </figcaption>
-      </figure>
-
-      <figure class="promofig">
-        <img src="images/Promo/promotions3.png" alt="Mother’s Day Early Bird Promotion" class="promo-img">
-        <figcaption>
-          <h2>Mother’s Day Early Bird Promotion</h2>
-          <p>🌸 Say “I Love You, Mum” with a heartfelt bouquet and enjoy <strong>10% OFF</strong> when you order before <strong>30 April 2023</strong>.</p>
-
-          <dl>
-            <dt><strong>Promotion:</strong></dt>
-            <dd>10% Early Bird Discount</dd>
-
-            <dt><strong>Valid Until:</strong></dt>
-            <dd>30 April 2023</dd>
-          </dl>
-
-          <h3>How to Redeem:</h3>
-          <ol>
-            <li>Pre-order your bouquet before <strong>30 April 2023</strong>.</li>
-            <li>Contact us via DM or purchase directly through our shop.</li>
-            <li>Pick up or schedule delivery before <strong>14 May 2023</strong>.</li>
-          </ol>
-        </figcaption>
-      </figure>
-
-      
-      <figure class="promofig">
-        <img src="images/Promo/promotions4.png" alt="Valentine’s Day Promotion" class="promo-img">
-        <figcaption>
-          <h2>Valentine’s Day Sale</h2>
-          <p>💖 Celebrate this Valentine’s Day with Root Flower’s romantic bouquets. Enjoy <strong>14% OFF</strong> early-bird orders before <strong>30 Jan 2023</strong>, or <strong>7% OFF</strong> before <strong>5 Feb 2023</strong>.</p>
-
-          <dl>
-            <dt><strong>Early Bird:</strong></dt>
-            <dd>14% discount for orders placed before 30 January 2023.</dd>
-
-            <dt><strong>Standard Offer:</strong></dt>
-            <dd>7% discount for orders made before 5 February 2023.</dd>
-          </dl>
-
-          <h3>How to Participate:</h3>
-          <ol>
-            <li>Place your order before <strong>30 Jan 2023</strong> to receive <strong>14%</strong> off or  before <strong>5 Feb 2023</strong> for <strong>7%</strong> off!</li>
-            <li>Order online or contact us directly to pre-order your bouquet.</li>
-            <li>Collect or have it delivered before Valentine’s Day!</li>
-          </ol>
-        </figcaption>
-      </figure>
-
+                    <div style="margin-top:15px; background:rgba(255,255,255,0.5); padding:10px; border-radius:5px;">
+                        <?= $row['details_html'] ?>
+                    </div>
+                </figcaption>
+            </figure>
+        <?php 
+            endwhile;
+        else:
+            echo "<p>No active promotions at the moment. Stay tuned!</p>";
+        endif;
+        $conn->close();
+        ?>
     </section>
 
-    <!-- How to Redeem -->
     <section class="promo-section" id="how-to-redeem">
-      <h2>How to Redeem</h2>
-      <ol>
-        <li>Pick your favorite promotion from the list above.</li>
-        <li>Contact us via <strong>Instagram DM</strong> or fill in our <a href="enquiry_form.php">Enquiry Form</a>.</li>
-        <li>Mention the promo name (e.g. “Valentine's Specials”).</li>
-        <li>Confirm your details and enjoy your discounted blooms!</li>
-      </ol>
+        <h2>How to Redeem</h2>
+        <ol>
+            <li>Pick your favorite promotion from the list above.</li>
+            <li>Contact us via <strong>Instagram DM</strong> or fill in our <a href="enquiry_form.php">Enquiry Form</a>.</li>
+            <li>Mention the promo name.</li>
+            <li>Confirm your details and enjoy your discounted blooms!</li>
+        </ol>
     </section>
 
     <aside class="promo-aside promo-section">
-      <h2>Join & Save 🌸</h2>
-      <p>Become a Root Flower member to enjoy exclusive discounts, seasonal promotions and more!</p>
-      <a href="membership_form.php" class="aside-btn">Join Membership</a>
-      <a href="workshops.php" class="aside-btn">View Workshops</a>
+        <h2>Join & Save 🌸</h2>
+        <p>Become a Root Flower member to enjoy exclusive discounts, seasonal promotions and more!</p>
+        <a href="membership_form.php" class="aside-btn">Join Membership</a>
+        <a href="workshops.php" class="aside-btn">View Workshops</a>
     </aside>
-  </main>
+</main>
 
-  <?php include('footer.inc'); ?>
-</body>
-</html>
+<?php include('footer.inc'); ?>

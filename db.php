@@ -11,8 +11,13 @@ $sql_enquiry = "CREATE TABLE IF NOT EXISTS enquiry (
     comment TEXT NOT NULL,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 )";
-$conn->query($sql_enquiry);
 
+if ($conn->query($sql_enquiry) === TRUE) {
+} else {
+    echo "Error creating table 'enquiry': " . $conn->error . "<br>";
+}
+
+// Create Register table (Workshop Registration)
 $sql_register = "CREATE TABLE IF NOT EXISTS register (
     id INT(11) AUTO_INCREMENT PRIMARY KEY,
     first_name VARCHAR(25) NOT NULL,
@@ -28,7 +33,11 @@ $sql_register = "CREATE TABLE IF NOT EXISTS register (
     comments TEXT,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 )";
-$conn->query($sql_register);
+
+if ($conn->query($sql_register) === TRUE) {
+} else {
+    echo "Error creating table 'register': " . $conn->error . "<br>";
+}
 
 $sql_user = "CREATE TABLE IF NOT EXISTS user (
     id INT AUTO_INCREMENT PRIMARY KEY,
@@ -39,7 +48,7 @@ $sql_user = "CREATE TABLE IF NOT EXISTS user (
     password VARCHAR(255) NOT NULL,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 )";
-$conn->query($sql_user);
+
 if ($conn->query($sql_user) === FALSE) {
     echo "Error creating table 'user': " . $conn->error . "<br>";
 }
@@ -53,21 +62,22 @@ $sql_membership = "CREATE TABLE IF NOT EXISTS membership (
     password VARCHAR(255) NOT NULL,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 )";
-$conn->query($sql_membership);
 
-$sql_admin = "CREATE TABLE IF NOT EXISTS admin (
+if ($conn->query($sql_membership) === FALSE) {
+    echo "Error creating table 'membership': " . $conn->error . "<br>";
+}
+
+$sql_promo = "CREATE TABLE IF NOT EXISTS promotions (
     id INT AUTO_INCREMENT PRIMARY KEY,
-    username VARCHAR(25) NOT NULL UNIQUE,
-    password VARCHAR(255) NOT NULL
+    title VARCHAR(255) NOT NULL,
+    image_path VARCHAR(255) NOT NULL,
+    description TEXT NOT NULL,
+    details_html TEXT NOT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 )";
-if ($conn->query($sql_admin) === TRUE) {
-    $check_admin = $conn->query("SELECT * FROM admin WHERE username = 'Admin'");
-    if ($check_admin->num_rows == 0) {
-        $admin_pass = password_hash("Admin", PASSWORD_DEFAULT);
-        $insert_admin = $conn->prepare("INSERT INTO admin (username, password) VALUES ('Admin', ?)");
-        $insert_admin->bind_param("s", $admin_pass);
-        $insert_admin->execute();
-    }
+
+if ($conn->query($sql_promo) === FALSE) {
+    echo "Error creating table 'promotions': " . $conn->error . "<br>";
 }
 
 $sql_spam = "CREATE TABLE IF NOT EXISTS spam_block (
@@ -75,5 +85,11 @@ $sql_spam = "CREATE TABLE IF NOT EXISTS spam_block (
     attempts INT DEFAULT 1,
     last_attempt TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 )";
-$conn->query($sql_spam);
+
+if ($conn->query($sql_spam) === FALSE) {
+    echo "Error creating table 'spam_block': " . $conn->error . "<br>";
+}
+
+echo "Database setup completed.";
+$conn->close();
 ?>
