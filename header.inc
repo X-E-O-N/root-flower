@@ -1,9 +1,9 @@
-<!-- header.inc -->
 <?php
-// header.inc - small PHP wrapper in case session values are needed
 if (session_status() === PHP_SESSION_NONE) {
     @session_start();
 }
+
+require_once 'db.php';
 ?>
 <header class="white-text">
     <div class="top">
