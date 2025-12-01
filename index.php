@@ -10,7 +10,7 @@
     <title>Home - Root Flower</title>
 </head>
 <body>
-    <?php include 'header.php'; ?>
+    <?php include('header.inc'); ?>
 
     <main class="content">
         <section class="hero white-text">
@@ -68,6 +68,6 @@
         </section>
     </main>
 
-    <?php include 'footer.php'; ?>
+    <?php include('footer.inc'); ?>
 </body>
 </html>

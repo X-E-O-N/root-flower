@@ -11,7 +11,7 @@
 </head>
 
 <body>
-  <?php include 'header.php'; ?>
+  <?php include('header.inc'); ?>
 
   <main class="content">
     <h1> Promotions & Special Offers</h1>
@@ -124,6 +124,6 @@
     </aside>
   </main>
 
-  <?php include 'footer.php'; ?>
+  <?php include('footer.inc'); ?>
 </body>
 </html>

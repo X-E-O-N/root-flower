@@ -10,7 +10,7 @@
     <title>About - CCH</title>
 </head>
 <body>
-    <?php include 'header.php'; ?>
+    <?php include('header.inc'); ?>
 
     <main class="content">
         <img src="images/RX8.jpg" alt="CCH pfp" class="profile-pic">
@@ -50,6 +50,6 @@
         <a class="profile-mailto" href="mailto:101235900@students.swinburne.edu.my">Email me here</a>
     </main>
 
-    <?php include 'footer.php'; ?>
+    <?php include('footer.inc'); ?>
 </body>
 </html>

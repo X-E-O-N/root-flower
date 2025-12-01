@@ -10,7 +10,7 @@
     <title>Graduation - Root Flower</title>
 </head>
 <body>
-    <?php include 'header.php'; ?>
+    <?php include('header.inc'); ?>
 
     <main class="product-content">
       <h1>Graduation Flowers</h1>  
@@ -74,6 +74,6 @@
       </div>
     </main>
 
-    <?php include 'footer.php'; ?>
+    <?php include('footer.inc'); ?>
 </body>
 </html>

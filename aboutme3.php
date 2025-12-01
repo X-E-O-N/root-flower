@@ -10,7 +10,7 @@
     <title>About - Dhirrenn</title>
 </head>
 <body>
-    <?php include 'header.php'; ?>
+    <?php include('header.inc'); ?>
 
     <main class="content">
         <img src="images/Dhirrenn.jpg" alt="Dhirrenn pfp" class="profile-pic">
@@ -49,6 +49,6 @@
         <a class="profile-mailto" href="mailto:102761273@students.swinburne.edu.my">Email me here</a>
     </main>
 
-    <?php include 'footer.php'; ?>
+    <?php include('footer.inc'); ?>
 </body>
 </html>

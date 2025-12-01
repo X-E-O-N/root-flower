@@ -10,7 +10,7 @@
     <title>Home - Root Flower</title>
 </head>
 <body>
-    <?php include 'header.php'; ?>
+    <?php include('header.inc'); ?>
 
     <main class="content">
         <h1>Acknowledgements</h1>
@@ -24,6 +24,6 @@
         </section>
     </main>
 
-    <?php include 'footer.php'; ?>
+    <?php include('footer.inc'); ?>
 </body>
 </html>

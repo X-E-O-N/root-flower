@@ -11,7 +11,7 @@
 </head>
 
 <body>
-  <?php include 'header.php'; ?>
+  <?php include('header.inc'); ?>
 
   <main class="content">
     <h1>Floral Workshops</h1>
@@ -153,6 +153,6 @@
 
   </main>
 
-  <?php include 'footer.php'; ?>
+  <?php include('footer.inc'); ?>
 </body>
 </html>

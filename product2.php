@@ -10,7 +10,7 @@
     <title>Chinese New Year Decorations - Root Flower</title>
 </head>
 <body>
-    <?php include 'header.php'; ?>
+    <?php include('header.inc'); ?>
 
     <main class="product-content">
         <h1>Chinese New Year Floral Decorations</h1>
@@ -108,6 +108,6 @@
         </div>
     </main>
 
-    <?php include 'footer.php'; ?>
+    <?php include('footer.inc'); ?>
 </body>
 </html>

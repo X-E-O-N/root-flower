@@ -10,7 +10,7 @@
     <title>About - Azmain</title>
 </head>
 <body>
-    <?php include 'header.php'; ?>
+    <?php include('header.inc'); ?>
 
     <main class="content">
         <img class="pfp" src="images/Azmain.jpg">
@@ -42,6 +42,6 @@
         </div>
     </main>
 
-    <?php include 'footer.php'; ?>
+    <?php include('footer.inc'); ?>
 </body>
 </html>
