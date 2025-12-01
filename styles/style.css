@@ -741,7 +741,7 @@ p {
 
 .aside-btn {
   display: inline-block;
-  background: linear-gradient(#990000, #660000);
+  background: #b30000;
   color: #fff;
   padding: 10px 20px;
   border-radius: 8px;
@@ -751,7 +751,8 @@ p {
 }
 
 .aside-btn:hover {
-  background: linear-gradient(#b30000, #7a0000);
+  background: #7a0000;
+  transform: scale(1.05);
 }
 
 /*  COURSE TABLE */
@@ -896,20 +897,6 @@ p {
   margin-bottom: 10px;
 }
 
-.aside-btn {
-  display: inline-block;
-  background: linear-gradient(#990000, #660000);
-  color: #fff;
-  padding: 10px 20px;
-  border-radius: 8px;
-  text-decoration: none;
-  font-weight: bold;
-  margin: 8px;
-}
-
-.aside-btn:hover {
-  background: linear-gradient(#b30000, #7a0000);
-}
 
 /* Responsive */
 @media (max-width: 900px) {
@@ -956,16 +943,12 @@ p {
   }
 }
 
-.aside-btn {
+/* .aside-btn {
   background: linear-gradient(270deg, #990000, #ff4d4d, #660000);
   background-size: 200% 200%;
   animation: gradientMove 6s ease infinite;
   transition: transform 0.2s ease;
-}
-
-.aside-btn:hover {
-  transform: scale(1.05);
-}
+} */
 
 /*>>>>>Dhirrenn*/
 

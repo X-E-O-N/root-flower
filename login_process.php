@@ -51,7 +51,7 @@ if ($row = $res->fetch_assoc()) {
     }
 }
 
-echo "<main class='content'><h1>Login Failed ❌</h1><p>The username or password you entered is incorrect.</p><p><a href='login_form.php' class='aside-btn'>Try Again</a></p></main>";
+echo "<main class='content'><h1>Login Failed ❌</h1><p class='confirmation-container'>The username or password you entered is incorrect.</p><p><a href='login_form.php' class='aside-btn'>Try Again</a></p></main>";
 include 'footer.inc';
 $conn->close();
 ?>
