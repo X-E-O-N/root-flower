@@ -6,7 +6,7 @@ if (!isset($_SESSION['role']) || $_SESSION['role'] !== 'admin') {
 
 $id = intval($_GET['id']);
 
-$conn = new mysqli("localhost", "root", "", "root_flower_db", 3307);
+$conn = new mysqli("localhost", "root", "", "root_flower_db", 8080);
 $stmt = $conn->prepare("DELETE FROM user WHERE id=?");
 $stmt->bind_param("i", $id);
 $stmt->execute();

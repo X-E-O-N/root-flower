@@ -3,7 +3,7 @@ session_start();
 include('header.inc');
 if(!isset($_SESSION["role"])||$_SESSION["role"]!="admin"){die("<main class='content'><h1>Access Forbidden 🚫</h1></main>");}
 
-$conn=new mysqli("localhost","root","","root_flower_db",3307);
+$conn=new mysqli("localhost","root","","root_flower_db",8080);
 $r=$conn->query("SELECT * FROM user");
 ?>
 
