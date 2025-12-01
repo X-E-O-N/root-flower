@@ -61,10 +61,8 @@ $sql_admin = "CREATE TABLE IF NOT EXISTS admin (
     password VARCHAR(255) NOT NULL
 )";
 if ($conn->query($sql_admin) === TRUE) {
-    // Check if default admin exists, if not, create it
     $check_admin = $conn->query("SELECT * FROM admin WHERE username = 'Admin'");
     if ($check_admin->num_rows == 0) {
-        // Create hash for password 'Admin'
         $admin_pass = password_hash("Admin", PASSWORD_DEFAULT);
         $insert_admin = $conn->prepare("INSERT INTO admin (username, password) VALUES ('Admin', ?)");
         $insert_admin->bind_param("s", $admin_pass);

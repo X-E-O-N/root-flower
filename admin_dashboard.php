@@ -1,33 +1,31 @@
 <?php
 session_start();
-include 'header.inc';
-
-// Check if admin session exists
+include('header.inc');
 if (!isset($_SESSION['role']) || $_SESSION['role'] !== 'admin') {
-   echo "<main class='content'><h1>Access Denied ❌</h1></main>";
-   include 'footer.inc';
-   exit();
+  die("<main class='content'><h1>Access Denied ❌</h1></main>");
 }
 ?>
 
 <main class="content">
  <h1>Admin Dashboard</h1>
- <form>
-   <fieldset>
-     <legend>Welcome, Admin 🌸</legend>
-     <p>You are logged in as <strong>Administrator</strong>.</p>
-     <p>To view submissions, use the direct URLs (for marking) or use your database management interface:</p>
-     <ul>
-       <li>View register entries: <code>/view_register.php</code></li>
-       <li>View enquiries: <code>/view_enquiry.php</code></li>
-       <li>View memberships: <code>/view_membership.php</code></li>
-     </ul>
-   </fieldset>
 
-   <div class="subres">
-     <a href="logout.php" class="aside-btn">Sign Out</a>
-   </div>
- </form>
+ <div class="float-aside">
+  <h2>Management Tools</h2>
+  <div class="admin-actions">
+   <a href="view_membership.php" class="aside-btn">View Members</a>
+   <a href="view_register.php" class="aside-btn">View Registrations</a>
+   <a href="view_enquiry.php" class="aside-btn">View Enquiries</a>
+   <a href="admin_users.php" class="aside-btn">Manage Users/Admins</a>
+  </div>
+ </div>
+
+ <div class="float-aside">
+  <h2>System Tools</h2>
+  <div class="admin-actions">
+   <a href="db_conn.php" class="aside-btn">Test DB Connection</a>
+   <a href="logout.php" class="aside-btn">Sign Out</a>
+  </div>
+ </div>
 </main>
 
-<?php include 'footer.inc'; ?>
+<?php include('footer.inc'); ?>

@@ -2,14 +2,12 @@
 session_start();
 include 'header.inc';
 
-// DB
 $host = "localhost"; $port = 3306; $user = "root"; $pass = ""; $dbname = "root_flower_db";
 $conn = new mysqli($host, $user, $pass, $dbname, $port);
 if ($conn->connect_error) {
     die("<main class='content'><h2>Database Connection Failed ❌</h2><p>" . htmlspecialchars($conn->connect_error) . "</p></main>");
 }
 
-// Inputs
 $username = trim($_POST['username'] ?? '');
 $password = $_POST['password'] ?? '';
 
@@ -19,7 +17,6 @@ if (empty($username) || empty($password)) {
     exit();
 }
 
-// Check admin table
 $admin_sql = "SELECT username, password FROM admin WHERE username = ?";
 $stmt = $conn->prepare($admin_sql);
 $stmt->bind_param("s", $username);
@@ -36,7 +33,6 @@ if ($row = $res->fetch_assoc()) {
 }
 $stmt->close();
 
-// Check user table
 $user_sql = "SELECT first_name, last_name, username, email, password FROM user WHERE username = ?";
 $stmt = $conn->prepare($user_sql);
 $stmt->bind_param("s", $username);

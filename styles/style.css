@@ -1182,4 +1182,13 @@ footer div ul li:hover {
   }
 }
 
+.admin-actions {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 15px;
+    padding: 10px;
+    margin-top: 15px;
+}
+
 /*>>>>>Azmain*/

@@ -1,7 +1,3 @@
-<?php
-// register.php
-// This is the workshop/register form that posts to register_process.php
-?>
 <!DOCTYPE html>
 <html lang="en">
 <head>

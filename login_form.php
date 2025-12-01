@@ -1,6 +1,5 @@
 <?php session_start();
 
-// Redirect logged-in users
 if (isset($_SESSION['role'])) {
     if ($_SESSION['role'] === 'admin') {
         header("Location: admin_dashboard.php?status=already_logged_in");

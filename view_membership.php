@@ -1,5 +1,5 @@
 <?php
-session_start(); 
+session_start();
 include('header.inc');
 if(!isset($_SESSION["role"])||$_SESSION["role"]!="admin"){die("<main class='content'><h1>Access Forbidden 🚫</h1></main>");}
 
@@ -8,18 +8,20 @@ $r=$conn->query("SELECT * FROM user");
 ?>
 
 <main class="content">
-<h1>👥 Registered Members</h1>
-<table class="course-table">
-<tr><th>Username</th><th>Email</th><th>Created</th></tr>
+<div class="course-table-section">
+    <h1>👥 Registered Members</h1>
+    <table class="course-table">
+    <tr><th>Username</th><th>Email</th><th>Created</th></tr>
 
-<?php while($row=$r->fetch_assoc()): ?>
-<tr>
-<td><?= $row['username']?></td>
-<td><?= $row['email']?></td>
-<td><?= htmlspecialchars($row['created_at'] ?? '') ?></td>
-</tr>
-<?php endwhile;?>
-</table>
+    <?php while($row=$r->fetch_assoc()): ?>
+    <tr>
+    <td><?= htmlspecialchars($row['username']) ?></td>
+    <td><?= htmlspecialchars($row['email']) ?></td>
+    <td><?= htmlspecialchars($row['created_at'] ?? '') ?></td>
+    </tr>
+    <?php endwhile;?>
+    </table>
+</div>
 
 <a href="admin_dashboard.php" class="aside-btn">⬅ Back to Dashboard</a>
 </main>
