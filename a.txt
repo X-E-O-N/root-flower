@@ -1,5 +1,4 @@
 i'm working on a web dev project called "root flower". check the attached documents for the assessment criteria. 
-i'm using port 8080 for Apache and 3306 for MySQL.
 the following are the relevant files. wait until i say i'm done uploading all of them.
 
 admin_dashboard.php:
@@ -1326,16 +1325,12 @@ $result=$conn->query("SELECT * FROM register");
 <?php include('footer.inc');?>
 
 
-those are all the files.
+those are all the files. now check the criteria and find issues that need fixing.
 
 
-
-
-
-that seemed to fix it. 
 here's style.css (wait until i say i'm done uploading):
 
-/*contributions from each member will be labelled using [member name]>>>>> (start) and >>>>>[member name} (end)*/
+/*contributions from each member will be labelled using [member name]>>>>> (start) and >>>>>[member name] (end)*/
 
 /*Azmain>>>>>*/
 

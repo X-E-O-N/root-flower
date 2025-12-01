@@ -14,7 +14,7 @@
     <title>Workshop Registration - Root Flower</title>
 </head>
 <body>
-    <?php include 'header.php'; ?>
+    <?php include 'header.inc'; ?>
 
     <main class="content">
         <h1>Workshop Registration Form</h1>
@@ -154,6 +154,6 @@
         </form>
     </main>
 
-    <?php include 'footer.php'; ?>
+    <?php include 'footer.inc'; ?>
 </body>
 </html>

@@ -40,6 +40,9 @@ $sql_user = "CREATE TABLE IF NOT EXISTS user (
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 )";
 $conn->query($sql_user);
+if ($conn->query($sql_user) === FALSE) {
+    echo "Error creating table 'user': " . $conn->error . "<br>";
+}
 
 $sql_membership = "CREATE TABLE IF NOT EXISTS membership (
     id INT AUTO_INCREMENT PRIMARY KEY,

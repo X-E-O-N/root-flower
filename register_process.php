@@ -20,6 +20,12 @@ $participants = intval($_POST['participants'] ?? 0);
 $workshop_date = trim($_POST['date'] ?? '');
 $comments = trim($_POST['comments'] ?? '');
 
+if (empty($first) || empty($last) || empty($email) || empty($phone) || empty($address) || empty($city) || empty($state) || empty($postcode) || empty($workshop_date)) {
+    echo "<main class='content'><h1>Submission Error ❌</h1><p>Please fill in all required fields.</p><p><a href='workshop_form.php' class='aside-btn'>Return to Form</a></p></main>";
+    include 'footer.inc';
+    exit();
+}
+
 $sql = "INSERT INTO register (first_name,last_name,email,phone,address,city,state,postcode,participants,workshop_date,comments)
         VALUES (?,?,?,?,?,?,?,?,?,?,?)";
 $stmt = $conn->prepare($sql);
