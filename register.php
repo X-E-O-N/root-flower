@@ -14,139 +14,90 @@
 
     <main class="content">
         <h1>Workshop Registration Form</h1>
-
-        <form method="post" action="register_process.php" novalidate>
+        
+        <form method="post" action="register_process.php">
             <fieldset>
                 <legend>Personal Details</legend>
                 <div class="twintext">
                     <div>
                         <label for="first_name">First Name:</label>
-                        <input type="text"
-                               name="first_name"
-                               id="first_name"
-                               pattern="[a-zA-Z]{1,25}"
-                               maxlength="25"
-                               title="First name should contain only letters (1-25 characters)"
-                               required>
+                        <input type="text" name="first_name" id="first_name" 
+                         value="<?= $_SESSION['first_name'] ?? '' ?>" pattern="[a-zA-Z]{0-25}" required="required">
                     </div>
                     <div>
                         <label for="last_name">Last Name:</label>
-                        <input type="text"
-                               name="last_name"
-                               id="last_name"
-                               pattern="[a-zA-Z]{1,25}"
-                               maxlength="25"
-                               title="Last name should contain only letters (1-25 characters)"
-                               required>
+                        <input type="text" name="last_name" id="last_name" 
+                         value="<?= $_SESSION['last_name'] ?? '' ?>" pattern="[a-zA-Z]{0-25}" required="required">
                     </div>
                 </div>
-
-                <div class="singletext">
-                    <label for="email">Email:</label>
-                    <input type="email"
-                           name="email"
-                           id="email"
-                           maxlength="100"
-                           title="Please enter a valid email address"
-                           required>
-                </div>
-
-                <div class="singletext">
-                    <label for="phone">Phone:</label>
-                    <input type="tel"
-                           name="phone"
-                           id="phone"
-                           pattern="[0-9]{1,10}"
-                           maxlength="10"
-                           title="Phone number must be up to 10 digits"
-                           required>
-                </div>
-            </fieldset>
-
-            <fieldset>
-                <legend>Location</legend>
-                <div>
-                    <label for="address">Street Address:</label>
-                    <input type="text"
-                           name="address"
-                           id="address"
-                           maxlength="40"
-                           pattern="[a-zA-Z0-9\s,.\()\/\-]{1,40}"
-                           title="Street address (max 40 characters)"
-                           required>
-                </div>
-
                 <div class="twintext">
                     <div>
-                        <label for="city">City / Town:</label>
-                        <input type="text"
-                               name="city"
-                               id="city"
-                               pattern="[a-zA-Z\s]{1,20}"
-                               maxlength="20"
-                               title="City/Town (max 20 letters)"
-                               required>
+                        <label for="email">Email:</label>
+                        <input type="email" name="email" id="email"
+                         value="<?= $_SESSION['email'] ?? '' ?>" size="20" required="required">
                     </div>
                     <div>
-                        <label for="state">State:</label>
-                        <input type="text"
-                               name="state"
-                               id="state"
-                               maxlength="40"
-                               title="State is required"
-                               required>
+                        <label for="phone">Phone Number:</label>
+                        <input type="tel" name="phone" id="phone" pattern="[0-9]{1,10}" maxlength="10" placeholder="+60-123456789" title="Phone number should be 1-10 digits" required>
                     </div>
                 </div>
-
-                <div class="singletext">
-                    <label for="postcode">Postcode:</label>
-                    <input type="text"
-                           name="postcode"
-                           id="postcode"
-                           pattern="[0-9]{5}"
-                           maxlength="5"
-                           title="Postcode must be 5 digits"
-                           required>
-                </div>
+                
             </fieldset>
-
+            <fieldset>
+                <legend>Address</legend>
+                <div class="singletext">
+                    <label for="address">Street Address:</label>
+                    <input type="text" name="address" id="address" pattern="[a-zA-Z0-9\s,.()\/\-]{1,40}" maxlength="40" size="40" title="Street address (1-40 characters, letters, numbers, spaces, brackets allowed)" required>
+                </div>
+                <div class="singletext">
+                    <label for="city">City/Town:</label>
+                    <input type="text" name="city" id="city" pattern="[a-zA-Z\s]{1,20}" maxlength="20" size="20" title="City/Town name (1-20 characters, letters and spaces)" required>
+                </div>
+                <div class="twintext">
+                    <div>
+                        <label for="state">State:</label>
+                        <select name="state" id="state" title="Please select a state" required>
+                            <option value="" selected>None</option>
+                            <option value="johor">Johor</option>
+                            <option value="kedah">Kedah</option>
+                            <option value="kelantan">Kelantan</option>
+                            <option value="malacca">Malacca</option>
+                            <option value="negeri_sembilan">Negeri Sembilan</option>
+                            <option value="pahang">Pahang</option>
+                            <option value="penang">Penang</option>
+                            <option value="perak">Perak</option>
+                            <option value="perlis">Perlis</option>
+                            <option value="sabah">Sabah</option>
+                            <option value="sarawak">Sarawak</option>
+                            <option value="selangor">Selangor</option>
+                            <option value="terengganu">Terengganu</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label for="postcode">Postcode:</label>
+                        <input type="text" name="postcode" id="postcode" pattern="[0-9]{5}" minlength="5" maxlength="5" size="5" title="Postcode must be exactly 5 digits" required>
+                    </div>
+                </div>
+                
+            </fieldset>
             <fieldset>
                 <legend>Workshop Details</legend>
                 <div class="singletext">
                     <label for="participants">Number of Participants:</label>
-                    <input type="number"
-                           name="participants"
-                           id="participants"
-                           min="1"
-                           max="99"
-                           pattern="[0-9]{1,2}"
-                           title="Number of participants (1-99)"
-                           required>
+                    <input type="number" name="participants" id="participants" min="1" max="99" title="Number of participants (1-99)" required>
                 </div>
-
                 <div class="singletext">
                     <label for="date">Preferred Date:</label>
-                    <input type="date"
-                           name="date"
-                           id="date"
-                           title="Select your preferred date"
-                           required>
+                    <input type="date" name="date" id="date" title="Please select a preferred date" required>
                 </div>
-
-                <div>
-                    <label for="comments">Comments / Special Requirements:</label>
-                    <textarea name="comments"
-                              id="comments"
-                              rows="4"
-                              maxlength="500"
-                              placeholder="Any notes we should know (optional)"></textarea>
+                <div class="textareadiv">
+                    <textarea name="comments" id="comments" placeholder="Additional comments (if any)"></textarea>
                 </div>
             </fieldset>
-
             <div class="subres">
                 <input type="submit" value="Submit">
                 <input type="reset" value="Reset">
-            </div>
+            </div>    
         </form>
     </main>
 

@@ -38,12 +38,12 @@ require_once 'db.php';
             <li class="dropdown">
                 Registration
                 <ul class="dropdown-content">
-                    <li><a href="workshop_form.php">Workshop Registration</a></li>
-                    <li><a href="membership_form.php">Membership Registration</a></li>
+                    <li><a href="register.php">Workshop Registration</a></li>
+                    <li><a href="membership.php">Membership Registration</a></li>
                 </ul>
             </li>
             <li>
-                <a href="enquiry_form.php">Enquiry Form</a>
+                <a href="enquiry.php">Enquiry Form</a>
             </li>
         </ul>
         <div id="login">
@@ -51,7 +51,7 @@ require_once 'db.php';
                 <span>Welcome, <?= htmlspecialchars($_SESSION['username'] ?? $_SESSION['first_name'] ?? '') ?></span>
                 <a href="logout.php">Logout</a>
             <?php else: ?>
-                <a href="login_form.php">Login</a>
+                <a href="login.php">Login</a>
             <?php endif; ?>
         </div>
     </nav>

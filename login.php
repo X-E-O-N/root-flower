@@ -37,7 +37,7 @@ if (isset($_SESSION['role'])) {
            <?php endif; ?>
            <div class="subres">
                <input type="submit" class="aside-btn" value="Login">
-               <a href="membership_form.php" class="aside-btn">Sign Up</a>
+               <a href="membership.php" class="aside-btn">Sign Up</a>
            </div>
        </form>
    </main>

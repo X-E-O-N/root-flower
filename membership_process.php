@@ -14,7 +14,7 @@ if ($stmt1->execute() && $stmt2->execute()) {
                 </ul>
             </div>
             <div class='confirmation-actions'>
-                <a href='login_form.php' class='btn-primary'>Go to Login</a>
+                <a href='login.php' class='btn-primary'>Go to Login</a>
             </div>
           </div>";
 } else {
@@ -25,7 +25,7 @@ if ($stmt1->execute() && $stmt2->execute()) {
                 <p>Database Error: " . htmlspecialchars($conn->error) . "</p>
             </div>
             <div class='confirmation-actions'>
-                <a href='membership_form.php' class='btn-secondary'>Try Again</a>
+                <a href='membership.php' class='btn-secondary'>Try Again</a>
             </div>
           </div>";
 }

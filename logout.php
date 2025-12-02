@@ -3,6 +3,6 @@ session_start();
 session_unset();
 session_destroy();
 
-header("Location: login_form.php?logout=1");
+header("Location: login.php?logout=1");
 exit();
 ?>

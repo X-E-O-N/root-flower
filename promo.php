@@ -115,7 +115,7 @@ if ($isAdmin) {
         <h2>How to Redeem</h2>
         <ol>
             <li>Pick your favorite promotion from the list above.</li>
-            <li>Contact us via <strong>Instagram DM</strong> or fill in our <a href="enquiry_form.php">Enquiry Form</a>.</li>
+            <li>Contact us via <strong>Instagram DM</strong> or fill in our <a href="enquiry.php">Enquiry Form</a>.</li>
             <li>Mention the promo name.</li>
             <li>Confirm your details and enjoy your discounted blooms!</li>
         </ol>
@@ -124,7 +124,7 @@ if ($isAdmin) {
     <aside class="promo-aside promo-section">
         <h2>Join & Save 🌸</h2>
         <p>Become a Root Flower member to enjoy exclusive discounts, seasonal promotions and more!</p>
-        <a href="membership_form.php" class="aside-btn">Join Membership</a>
+        <a href="membership.php" class="aside-btn">Join Membership</a>
         <a href="workshops.php" class="aside-btn">View Workshops</a>
     </aside>
 </main>

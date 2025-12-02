@@ -78,7 +78,7 @@ if(empty($first) || empty($last) || empty($email) || empty($phone) || empty($typ
                    <p>Please fill in <strong>all input fields</strong> before submitting.</p>
                </div>
                <div class='confirmation-actions'>
-                   <a href='enquiry_form.php' class='btn-secondary'>Return to Form</a>
+                   <a href='enquiry.php' class='btn-secondary'>Return to Form</a>
                </div>
            </div>
          </main>";
