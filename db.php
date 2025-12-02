@@ -89,7 +89,4 @@ $sql_spam = "CREATE TABLE IF NOT EXISTS spam_block (
 if ($conn->query($sql_spam) === FALSE) {
     echo "Error creating table 'spam_block': " . $conn->error . "<br>";
 }
-
-echo "Database setup completed.";
-$conn->close();
 ?>

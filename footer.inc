@@ -22,6 +22,7 @@
         Project Info:
         <ul>
             <li><a href="enhancements.php">Enhancements</a></li>
+            <li><a href="enhancements2.php">Enhancements 2</a></li>
             <li><a href="acknowledgements.php">Acknowledgements</a></li>
             <li><a href="https://youtu.be/aIVeBDxmBlA" target="_blank" rel="noopener">Demonstration Video</a></li>
         </ul>

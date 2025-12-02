@@ -22,12 +22,12 @@
                     <div>
                         <label for="first_name">First Name:</label>
                         <input type="text" name="first_name" id="first_name" 
-                         value="<?= $_SESSION['first_name'] ?? '' ?>" pattern="[a-zA-Z]{0-25}" required="required">
+                         value="<?= $_SESSION['first_name'] ?? '' ?>" pattern="[a-zA-Z]{1,25}" required="required">
                     </div>
                     <div>
                         <label for="last_name">Last Name:</label>
                         <input type="text" name="last_name" id="last_name" 
-                         value="<?= $_SESSION['last_name'] ?? '' ?>" pattern="[a-zA-Z]{0-25}" required="required">
+                         value="<?= $_SESSION['last_name'] ?? '' ?>" pattern="[a-zA-Z]{1,25}" required="required">
                     </div>
                 </div>
                 <div class="twintext">
